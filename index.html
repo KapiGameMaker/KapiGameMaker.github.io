@@ -30,6 +30,116 @@
     min-height:100vh;
     padding:32px 16px 64px;
   }
+  .hidden{display:none;}
+  .login-screen{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:20px;
+  }
+  .login-card{
+    background:rgba(255,255,255,0.3);
+    border:2px solid var(--line);
+    border-radius:8px;
+    padding:48px 40px;
+    max-width:380px;
+    text-align:center;
+    box-shadow:0 8px 24px rgba(0,0,0,0.1);
+  }
+  .login-card h1{
+    font-family:'Cinzel', serif;
+    font-size:32px;
+    font-weight:700;
+    letter-spacing:2px;
+    margin:0 0 12px;
+    color:var(--wine-dark);
+  }
+  .login-card .tagline{
+    font-style:italic;
+    color:var(--ink-soft);
+    margin-bottom:36px;
+    font-size:16px;
+  }
+  .role-selector{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    margin-bottom:28px;
+  }
+  .role-btn{
+    font-family:'Cinzel', serif;
+    font-size:16px;
+    letter-spacing:1px;
+    padding:16px 24px;
+    border:2px solid var(--line);
+    border-radius:4px;
+    background:rgba(255,255,255,0.4);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all 0.2s;
+  }
+  .role-btn:hover{
+    background:rgba(255,255,255,0.6);
+    border-color:var(--gold);
+  }
+  .role-btn.active{
+    background:var(--wine);
+    color:#f0e4c8;
+    border-color:var(--wine);
+  }
+  .dm-login{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding-top:20px;
+    border-top:1px dashed var(--line);
+  }
+  .dm-login label{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    color:var(--ink-soft);
+    align-self:flex-start;
+  }
+  .dm-login input{
+    font-family:'JetBrains Mono', monospace;
+    font-size:16px;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    background:#fbf7ea;
+    color:var(--ink);
+  }
+  .dm-login input:focus{
+    outline:2px solid var(--gold-bright);
+    outline-offset:1px;
+  }
+  .error-msg{
+    color:#e08a8a;
+    font-size:14px;
+    margin-top:8px;
+  }
+  .enter-btn{
+    font-family:'Cinzel', serif;
+    font-size:16px;
+    letter-spacing:1px;
+    background:var(--forest);
+    color:#f0f4e8;
+    border:none;
+    border-radius:4px;
+    padding:12px 24px;
+    cursor:pointer;
+    margin-top:16px;
+    transition:opacity 0.2s;
+  }
+  .enter-btn:hover{
+    opacity:0.9;
+  }
+  .enter-btn:disabled{
+    opacity:0.5;
+    cursor:not-allowed;
+  }
   .wrap{max-width:760px;margin:0 auto;}
   h1{
     font-family:'Cinzel', serif;
@@ -238,9 +348,34 @@
     margin-top:10px;
     line-height:1.6;
   }
+  .wrap{max-width:760px;margin:0 auto;}
 </style>
 </head>
 <body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <h1>ร้านค้าแห่งดันเจี้ยน</h1>
+    <p class="tagline">เข้าเล่นเป็นผู้เล่นหรือ DM</p>
+    
+    <div class="role-selector">
+      <button class="role-btn active" onclick="selectRole('player')">🎲 ผู้เล่น (Player)</button>
+      <button class="role-btn" onclick="selectRole('dm')">👑 ผู้จัดเล่น (DM)</button>
+    </div>
+
+    <div id="dmSection" class="dm-login hidden">
+      <label>รหัส DM</label>
+      <input type="password" id="dmCode" placeholder="กรอกรหัสผ่าน" onkeydown="if(event.key==='Enter') enterShop()">
+      <div id="errorMsg" class="error-msg"></div>
+    </div>
+
+    <button class="enter-btn" onclick="enterShop()">เข้าสู่ร้านค้า</button>
+  </div>
+</div>
+
+<!-- SHOP SCREEN -->
+<div id="shopScreen" class="hidden">
 <div class="wrap">
   <h1>ร้านค้าแห่งดันเจี้ยน</h1>
   <p class="subtitle">คำนวณทองและของที่ซื้อ — แล้วคัดลอกไปกรอกใน D&D Beyond เอง</p>
@@ -285,8 +420,49 @@
     </p>
   </div>
 </div>
+</div>
 
 <script>
+const DM_PASSWORD = 'P16b1p16_';
+let currentRole = 'player';
+
+function selectRole(role){
+  currentRole = role;
+  document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  const dmSection = document.getElementById('dmSection');
+  if(role === 'dm'){
+    dmSection.classList.remove('hidden');
+    document.getElementById('dmCode').focus();
+  } else {
+    dmSection.classList.add('hidden');
+    document.getElementById('errorMsg').textContent = '';
+  }
+}
+
+function enterShop(){
+  if(currentRole === 'player'){
+    showShop();
+  } else {
+    const code = document.getElementById('dmCode').value;
+    const errorMsg = document.getElementById('errorMsg');
+    if(code === DM_PASSWORD){
+      errorMsg.textContent = '';
+      showShop();
+    } else {
+      errorMsg.textContent = '❌ รหัสไม่ถูกต้อง';
+      document.getElementById('dmCode').value = '';
+      document.getElementById('dmCode').focus();
+    }
+  }
+}
+
+function showShop(){
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('shopScreen').classList.remove('hidden');
+}
+
 const CATALOG = [
   {name:"ดาบสั้น (Shortsword)", cat:"อาวุธ", price:10},
   {name:"ดาบยาว (Longsword)", cat:"อาวุธ", price:15},
