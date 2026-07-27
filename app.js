@@ -18,48 +18,59 @@ const DEFAULT_CATALOG = [
   {name:"ชุดปฐมพยาบาล (Healer's Kit)", cat:"อุปกรณ์", price:5},
 ];
 
+let isInitialized = false;
+let initPromise = null;
+
 async function initializeData(){
-  const config = getGHConfig();
-  if(config && config.token){
-    await pullFromGitHub();
-  }
-
-  let users = getUsers();
+  if(initPromise) return initPromise;
   
-  const adminIdx = users.findIndex(u => u.id === DEFAULT_ADMIN.id);
-  if (adminIdx > -1) {
-    // Force update admin credentials and role to match code
-    users[adminIdx].username = DEFAULT_ADMIN.username;
-    users[adminIdx].password = DEFAULT_ADMIN.password;
-    users[adminIdx].role = DEFAULT_ADMIN.role;
-  } else {
-    // Ensure the default admin exists
-    const duplicateIdx = users.findIndex(u => u.username === DEFAULT_ADMIN.username);
-    if (duplicateIdx > -1) {
-      users[duplicateIdx].id = DEFAULT_ADMIN.id;
-      users[duplicateIdx].password = DEFAULT_ADMIN.password;
-      users[duplicateIdx].role = DEFAULT_ADMIN.role;
-    } else {
-      users.push(DEFAULT_ADMIN);
+  initPromise = (async () => {
+    const config = getGHConfig();
+    if(config && config.token){
+      await pullFromGitHub();
     }
-  }
-  saveUsers(users);
 
-  if(!localStorage.getItem('parties')){
-    localStorage.setItem('parties', JSON.stringify([]));
-  }
-  if(!localStorage.getItem('shops')){
-    const initialShops = {
-      'shop_0': {
-        id: 'shop_0',
-        name: 'สตาร์ทกิตเกอร์',
-        items: [...DEFAULT_CATALOG],
-        dmId: 'admin_0' // Default shop belongs to admin or a generic DM
+    let users = getUsers();
+    
+    const adminIdx = users.findIndex(u => u.id === DEFAULT_ADMIN.id);
+    if (adminIdx > -1) {
+      // Force update admin credentials and role to match code
+      users[adminIdx].username = DEFAULT_ADMIN.username;
+      users[adminIdx].password = DEFAULT_ADMIN.password;
+      users[adminIdx].role = DEFAULT_ADMIN.role;
+    } else {
+      // Ensure the default admin exists
+      const duplicateIdx = users.findIndex(u => u.username === DEFAULT_ADMIN.username);
+      if (duplicateIdx > -1) {
+        users[duplicateIdx].id = DEFAULT_ADMIN.id;
+        users[duplicateIdx].password = DEFAULT_ADMIN.password;
+        users[duplicateIdx].role = DEFAULT_ADMIN.role;
+      } else {
+        users.push(DEFAULT_ADMIN);
       }
-    };
-    localStorage.setItem('shops', JSON.stringify(initialShops));
-    localStorage.setItem('selectedShop', 'shop_0');
-  }
+    }
+    saveUsers(users);
+
+    if(!localStorage.getItem('parties')){
+      localStorage.setItem('parties', JSON.stringify([]));
+    }
+    if(!localStorage.getItem('shops')){
+      const initialShops = {
+        'shop_0': {
+          id: 'shop_0',
+          name: 'สตาร์ทกิตเกอร์',
+          items: [...DEFAULT_CATALOG],
+          dmId: 'admin_0' // Default shop belongs to admin or a generic DM
+        }
+      };
+      localStorage.setItem('shops', JSON.stringify(initialShops));
+      localStorage.setItem('selectedShop', 'shop_0');
+    }
+    isInitialized = true;
+    console.log('✅ Initialization complete');
+  })();
+  
+  return initPromise;
 }
 
 function getUsers(){
@@ -189,9 +200,13 @@ async function pushToGitHub(){
   const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout for push
+
     // Get existing file for sha
     const res = await fetch(url, {
-      headers: { 'Authorization': `token ${config.token}` }
+      headers: { 'Authorization': `token ${config.token}` },
+      signal: controller.signal
     });
     
     let sha = null;
@@ -212,8 +227,11 @@ async function pushToGitHub(){
         'Authorization': `token ${config.token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
+      signal: controller.signal
     });
+
+    clearTimeout(timeoutId);
 
     if(!saveRes.ok) throw new Error('GitHub Save Failed');
     console.log('✅ Data synced to GitHub');
@@ -226,14 +244,20 @@ async function pushToGitHub(){
 
 async function pullFromGitHub(){
   const config = getGHConfig();
-  if(!config || !config.token || !config.owner || !config.repo) return;
+  if(!config || !config.token || !config.owner || !config.repo) return false;
 
   const url = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path || 'dnd_data.json'}`;
   
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+
     const res = await fetch(url, {
-      headers: { 'Authorization': `token ${config.token}` }
+      headers: { 'Authorization': `token ${config.token}` },
+      signal: controller.signal
     });
+    
+    clearTimeout(timeoutId);
     
     if(res.status === 200){
       const fileData = await res.json();
@@ -256,11 +280,14 @@ async function pullFromGitHub(){
 }
 
 // Global auto-sync trigger
+let syncTimeout = null;
 function triggerAutoSync(){
   const config = getGHConfig();
   if(config && config.token) {
-    // Debounce or just push for now
-    pushToGitHub();
+    if(syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => {
+      pushToGitHub();
+    }, 2000); // Wait 2 seconds of inactivity before pushing
   }
 }
 
@@ -282,17 +309,38 @@ function selectRole(role){
   document.getElementById('username').focus();
 }
 
-function enterShop(){
-  const user = document.getElementById('username').value.trim();
-  const pass = document.getElementById('password').value.trim();
-  const errorMsg = document.getElementById('errorMsg');
+async function enterShop(){
+  const loginBtn = document.querySelector('.enter-btn');
+  const originalBtnText = loginBtn ? loginBtn.textContent : 'เข้าสู่ระบบ';
   
-  if(login(user, pass)){
-    errorMsg.textContent = '';
-  } else {
-    errorMsg.textContent = '❌ ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
-    document.getElementById('password').value = '';
-    document.getElementById('password').focus();
+  if(loginBtn) {
+    loginBtn.disabled = true;
+    loginBtn.textContent = '⌛ กำลังเตรียมระบบ...';
+  }
+
+  try {
+    // Wait for data to be ready (GitHub pull + Admin Force Update)
+    await initializeData();
+    
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value.trim();
+    const errorMsg = document.getElementById('errorMsg');
+    
+    if(login(user, pass)){
+      errorMsg.textContent = '';
+    } else {
+      errorMsg.textContent = '❌ ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+      document.getElementById('password').value = '';
+      document.getElementById('password').focus();
+    }
+  } catch (e) {
+    console.error(e);
+    alert('เกิดข้อผิดพลาดในการโหลดข้อมูล: ' + e.message);
+  } finally {
+    if(loginBtn) {
+      loginBtn.disabled = false;
+      loginBtn.textContent = originalBtnText;
+    }
   }
 }
 

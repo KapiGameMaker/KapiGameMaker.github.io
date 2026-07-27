@@ -358,13 +358,15 @@ function logout(){
   window.location.href = 'index.html';
 }
 
-// Auth Check
-(function(){
+// Auth & Init
+async function initDM(){
+  await initializeData();
   const user = getCurrentUser();
   if(!user || user.role !== 'dm'){
     window.location.href = 'index.html';
+    return;
   }
-})();
+  renderDMDashboard();
+}
 
-initializeData();
-renderDMDashboard();
+initDM();

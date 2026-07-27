@@ -266,15 +266,17 @@ function logout(){
   window.location.href = 'index.html';
 }
 
-// Auth Check
-(function(){
+// Auth & Init
+async function initPlayer(){
+  await initializeData();
   const user = getCurrentUser();
   if(!user || user.role !== 'player'){
     window.location.href = 'index.html';
+    return;
   }
-})();
+  loadShop();
+}
+
+initPlayer();
 
 document.getElementById('startGold').addEventListener('change', resetShop);
-
-initializeData();
-loadShop();

@@ -97,10 +97,17 @@
 <script src="app.js"></script>
 <script>
   // Auth Check
-  const user = getCurrentUser();
-  if(!user || user.role !== 'admin'){
-    window.location.href = 'index.html';
+  async function checkAuth(){
+    await initializeData();
+    const user = getCurrentUser();
+    if(!user || user.role !== 'admin'){
+      window.location.href = 'index.html';
+    }
+    renderDMs();
+    loadGHSettings();
   }
+
+  checkAuth();
 
   function renderDMs(){
     const users = getUsers();
