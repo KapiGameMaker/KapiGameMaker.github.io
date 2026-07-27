@@ -16,18 +16,11 @@ function loadShop(){
 function renderItems(){
   const list = document.getElementById('itemList');
   list.innerHTML = '';
-  const filter = document.getElementById('catFilter');
-  const cats = ['all', ...new Set(currentCatalog.map(i => i.cat))];
-  const currentCat = filter ? filter.value : 'all';
-  if(filter){
-    filter.innerHTML = cats.map(c => `<option value="${c}"${c===currentCat?' selected':''}>${c==='all'?'ทั้งหมด':c}</option>`).join('');
-  }
   currentCatalog.forEach((item, idx) => {
-    if(currentCat !== 'all' && item.cat !== currentCat) return;
     const row = document.createElement('div');
     row.className = 'item-row';
     row.innerHTML = `
-      <button class="item-name-btn" onclick="buyItem(${idx})">${item.name}<span class="item-cat">${item.cat}</span></button>
+      <div class="item-name">${item.name}<span class="item-cat">${item.cat}</span></div>
       <div class="item-price">${fmt(item.price)} gp</div>
       <input type="number" class="qty-input" id="qty-${idx}" value="1" min="1">
       <button class="buy-btn" onclick="buyItem(${idx})">ซื้อ</button>
