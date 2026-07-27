@@ -37,6 +37,12 @@
 
   <div class="section">
     <div class="ledger-title">สินค้าในร้าน <span class="hint">กดซื้อเพื่อหักทองอัตโนมัติ</span></div>
+    <div class="cat-filter">
+      <label for="catFilter">หมวดหมู่</label>
+      <select id="catFilter" onchange="renderItems()">
+        <option value="all">ทั้งหมด</option>
+      </select>
+    </div>
     <div id="itemList"></div>
 
     <div class="custom-add">

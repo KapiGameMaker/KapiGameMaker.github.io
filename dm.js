@@ -14,8 +14,9 @@ function renderDMDashboard(){
     shop.items.forEach((item, idx) => {
       itemsHtml += `
         <div class="item-row-dm">
-          <div>${item.name} <span class="item-cat">${item.cat}</span></div>
-          <input type="number" value="${item.price}" id="price_${shop.id}_${idx}" step="0.1">
+          <input type="text" class="item-name-input-dm" value="${item.name}" id="iname_edit_${shop.id}_${idx}" oninput="editItemName('${shop.id}', ${idx}, this.value)">
+          <input type="text" class="item-cat-input-dm" value="${item.cat}" id="icat_edit_${shop.id}_${idx}" oninput="editItemCat('${shop.id}', ${idx}, this.value)">
+          <input type="number" value="${item.price}" id="price_${shop.id}_${idx}" step="0.1" oninput="editItemPrice('${shop.id}', ${idx}, this.value)">
           <button class="small-btn danger" onclick="removeItemDM('${shop.id}', ${idx})">ลบ</button>
         </div>
       `;
@@ -79,6 +80,30 @@ function removeItemDM(shopId, idx){
   shops[shopId].items.splice(idx, 1);
   saveShops(shops);
   renderDMDashboard();
+}
+
+function editItemName(shopId, idx, value){
+  const shops = getShops();
+  if(shops[shopId] && shops[shopId].items[idx]){
+    shops[shopId].items[idx].name = value;
+    saveShops(shops);
+  }
+}
+
+function editItemCat(shopId, idx, value){
+  const shops = getShops();
+  if(shops[shopId] && shops[shopId].items[idx]){
+    shops[shopId].items[idx].cat = value;
+    saveShops(shops);
+  }
+}
+
+function editItemPrice(shopId, idx, value){
+  const shops = getShops();
+  if(shops[shopId] && shops[shopId].items[idx]){
+    const n = parseFloat(value);
+    if(!isNaN(n)) shops[shopId].items[idx].price = n;
+  }
 }
 
 function deleteShop(shopId){
