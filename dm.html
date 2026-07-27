@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ผู้จัดเล่น — D&D Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="wrap">
+  <div class="header">
+    <h1>ร้านค้าแห่งดันเจี้ยน — ผู้จัดเล่น</h1>
+    <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchDMTab('manage')">⚙️ จัดการร้าน</button>
+    <button class="tab-btn" onclick="switchDMTab('select')">🎯 เลือกร้านให้ผู้เล่น</button>
+  </div>
+
+  <!-- MANAGE SHOPS TAB -->
+  <div id="manageTab" class="dm-dashboard">
+    <div class="new-shop">
+      <h3 style="margin-top:0;">➕ สร้างร้านใหม่</h3>
+      <input type="text" id="newShopName" placeholder="ชื่อร้านค้า (เช่น สตาร์ทกิตเกอร์, ปลายทาง)">
+      <button class="small-btn primary" onclick="createNewShop()" style="width:100%;">สร้างร้าน</button>
+    </div>
+
+    <div id="shopsContainer"></div>
+  </div>
+
+  <!-- SELECT SHOP TAB -->
+  <div id="selectTab" class="hidden">
+    <div class="shop-card">
+      <h3>เลือกร้านให้ผู้เล่นดู</h3>
+      <div id="shopSelector" style="display:flex; flex-direction:column; gap:10px;"></div>
+      <button class="buy-btn" onclick="syncShopToPlayer()" style="margin-top:16px; width:100%;">📤 ส่งให้ผู้เล่น</button>
+      <div class="sync-status" id="syncStatus"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+<script src="dm.js"></script>
+
+</body>
+</html>

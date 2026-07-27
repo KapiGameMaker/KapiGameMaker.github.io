@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ผู้เล่น — D&D Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="wrap">
+  <div class="header">
+    <h1>ร้านค้าแห่งดันเจี้ยน</h1>
+    <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
+  </div>
+
+  <button class="refresh-shop-btn" onclick="playerRefreshShop()">🔄 รีเฟรชร้านค้า</button>
+  <p class="subtitle">คำนวณทองและของที่ซื้อ — แล้วคัดลอกไปกรอกใน D&D Beyond เอง</p>
+
+  <div class="setup">
+    <div class="field">
+      <label>ชื่อตัวละคร</label>
+      <input type="text" id="charName" placeholder="เช่น Elandra Moonwhisper" value="ตัวละครของฉัน">
+    </div>
+    <div class="field">
+      <label>ทองตั้งต้น (gp)</label>
+      <input type="number" id="startGold" value="100" min="0">
+    </div>
+  </div>
+
+  <div class="purse">
+    <span class="label">ถุงทองคงเหลือ</span>
+    <span class="amount" id="goldDisplay">100 gp</span>
+  </div>
+
+  <div class="section">
+    <div class="ledger-title">สินค้าในร้าน <span class="hint">กดซื้อเพื่อหักทองอัตโนมัติ</span></div>
+    <div id="itemList"></div>
+
+    <div class="custom-add">
+      <input type="text" name="cname" id="cname" placeholder="ชื่อไอเทมที่ไม่มีในลิสต์">
+      <input type="number" name="cprice" id="cprice" placeholder="ราคา (gp)">
+      <button class="buy-btn" onclick="addCustomItem()">เพิ่มลงร้าน</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="ledger-title">ใบเสร็จ <span class="hint">คัดลอกไปวางเป็นบันทึกใน DDB</span></div>
+    <div class="receipt" id="receiptBox">
+      <p class="receipt-empty">ยังไม่มีรายการซื้อ</p>
+    </div>
+    <button class="copy-btn" onclick="copyReceipt()">คัดลอกใบเสร็จ</button>
+    <button class="reset-btn" onclick="resetShop()">เริ่มใหม่</button>
+    <span class="copy-status" id="copyStatus"></span>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script src="player.js"></script>
+<script>
+// Initialize on load
+initializeData();
+loadShop();
+</script>
+
+</body>
+</html>
