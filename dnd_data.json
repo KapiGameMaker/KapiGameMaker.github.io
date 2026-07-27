@@ -1,0 +1,105 @@
+{
+  "users": [
+    {
+      "id": "admin_0",
+      "username": "plume2546",
+      "password": "P16b1p16_",
+      "role": "admin"
+    },
+    {
+      "id": "dm_1785191399831",
+      "username": "Pluem",
+      "password": "P16b1p16_",
+      "role": "dm"
+    },
+    {
+      "id": "pl_1785191481007",
+      "username": "ปลื้ม",
+      "password": "ปลื้ม",
+      "role": "player",
+      "partyId": "party_1785191465656",
+      "dmId": "dm_1785191399831"
+    },
+    {
+      "id": "pl_1785191499974",
+      "username": "หลิน",
+      "password": "หลิน",
+      "role": "player",
+      "partyId": "party_1785191465656",
+      "dmId": "dm_1785191399831"
+    },
+    {
+      "id": "pl_1785196492097",
+      "username": "หมิง",
+      "password": "หมิง",
+      "role": "player",
+      "partyId": "party_1785191465656",
+      "dmId": "dm_1785191399831"
+    }
+  ],
+  "parties": [
+    {
+      "id": "party_1785191465656",
+      "name": "เบียว",
+      "dmId": "dm_1785191399831",
+      "assignedShopId": "shop_1785191445402"
+    }
+  ],
+  "shops": {
+    "shop_0": {
+      "id": "shop_0",
+      "name": "สตาร์ทกิตเกอร์",
+      "items": [
+        {
+          "name": "ชุดปฐมพยาบาล (Healer's Kit)",
+          "cat": "อุปกรณ์",
+          "price": 5,
+          "info": "fdsffffffffffffsdf\ndsaaaaaaaaaaaaaaaaaaaaaa\ndasfff\nadffffff"
+        },
+        {
+          "name": "fsdf",
+          "cat": "fsdfds",
+          "price": 555,
+          "info": "gsdgsg"
+        }
+      ]
+    },
+    "shop_1785187430319": {
+      "id": "shop_1785187430319",
+      "name": "55",
+      "items": []
+    },
+    "shop_1785191445402": {
+      "id": "shop_1785191445402",
+      "name": "เหงา",
+      "items": [
+        {
+          "name": "ดาบสั้น (Shortsword)",
+          "cat": "อาวุธ",
+          "price": 10
+        },
+        {
+          "name": "ดาบยาว (Longsword)",
+          "cat": "อาวุธ",
+          "price": 15
+        },
+        {
+          "name": "ดาบสั้นนนนนน",
+          "cat": "อาวุธ",
+          "price": 999
+        }
+      ],
+      "dmId": "dm_1785191399831"
+    },
+    "shop_1785193274130": {
+      "id": "shop_1785193274130",
+      "name": "ไม่มีร้านค้า",
+      "items": [],
+      "dmId": "dm_1785191399831"
+    }
+  },
+  "dmWebhooks": {
+    "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
+  },
+  "lastUpdated": "2026-07-27T23:55:07.965Z"
+}
