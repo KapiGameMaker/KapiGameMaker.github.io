@@ -48,6 +48,14 @@ function setSelectedShopId(shopId){
   localStorage.setItem('selectedShop', shopId);
 }
 
+function getDiscordWebhookUrl(){
+  return localStorage.getItem('discordWebhookUrl') || '';
+}
+
+function setDiscordWebhookUrl(url){
+  localStorage.setItem('discordWebhookUrl', url);
+}
+
 function getShop(shopId){
   const shops = getShops();
   return shops[shopId] || null;

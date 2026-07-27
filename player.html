@@ -12,12 +12,12 @@
 
 <div class="wrap">
   <div class="header">
-    <h1>ร้านค้าแห่งดันเจี้ยน</h1>
+    <h1 id="shopTitle">ร้านค้าแห่งดันเจี้ยน</h1>
     <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
   </div>
 
   <button class="refresh-shop-btn" onclick="playerRefreshShop()">🔄 รีเฟรชร้านค้า</button>
-  <p class="subtitle">คำนวณทองและของที่ซื้อ — แล้วคัดลอกไปกรอกใน D&D Beyond เอง</p>
+  <p class="subtitle">คำนวณทองและซื้อไอเทม — ระบบจะแจ้งรายการให้ DM ทราบโดยอัตโนมัติ</p>
 
   <div class="setup">
     <div class="field">
@@ -39,20 +39,20 @@
     <div class="ledger-title">สินค้าในร้าน <span class="hint">กดซื้อเพื่อหักทองอัตโนมัติ</span></div>
     <div id="itemList"></div>
 
-    <div class="custom-add">
-      <input type="text" name="cname" id="cname" placeholder="ชื่อไอเทมที่ไม่มีในลิสต์">
-      <input type="number" name="cprice" id="cprice" placeholder="ราคา (gp)">
-      <button class="buy-btn" onclick="addCustomItem()">เพิ่มลงร้าน</button>
-    </div>
   </div>
 
   <div class="section">
-    <div class="ledger-title">ใบเสร็จ <span class="hint">คัดลอกไปวางเป็นบันทึกใน DDB</span></div>
+    <div class="ledger-title">ใบเสร็จ <span class="hint">ยืนยันคำสั่งซื้อเพื่อแจ้ง DM ทาง Discord</span></div>
     <div class="receipt" id="receiptBox">
       <p class="receipt-empty">ยังไม่มีรายการซื้อ</p>
     </div>
-    <button class="copy-btn" onclick="copyReceipt()">คัดลอกใบเสร็จ</button>
-    <button class="reset-btn" onclick="resetShop()">เริ่มใหม่</button>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <button class="buy-btn" onclick="confirmOrder()" style="width:100%;">ยืนยันคำสั่งซื้อ (ส่งเข้า Discord)</button>
+      <div style="display: flex; gap: 8px;">
+        <button class="copy-btn" onclick="copyReceipt()" style="flex: 1;">คัดลอกใบเสร็จ</button>
+        <button class="reset-btn" onclick="resetShop()" style="flex: 1;">เริ่มใหม่</button>
+      </div>
+    </div>
     <span class="copy-status" id="copyStatus"></span>
   </div>
 </div>

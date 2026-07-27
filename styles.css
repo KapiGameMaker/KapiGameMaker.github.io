@@ -401,29 +401,23 @@ h1{
 
 .buy-btn:hover{opacity:0.85;}
 
+.cancel-btn{
+  font-family:'Cinzel', serif;
+  font-size:12px;
+  letter-spacing:0.5px;
+  background:var(--wine);
+  color:#f0f4e8;
+  border:none;
+  border-radius:3px;
+  padding:8px 14px;
+  cursor:pointer;
+  transition:opacity 0.15s;
+}
+
+.cancel-btn:hover{opacity:0.85;}
+
 .buy-btn:disabled{background:#8a8a7c;cursor:not-allowed;}
 
-.custom-add{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:flex-end;
-  margin-top:16px;
-  padding-top:14px;
-  border-top:1px dashed var(--line);
-}
-
-.custom-add input{
-  font-family:'EB Garamond', serif;
-  padding:7px 10px;
-  border:1px solid var(--line);
-  border-radius:3px;
-  background:#fbf7ea;
-}
-
-.custom-add input[name="cname"]{flex:1;min-width:160px;}
-
-.custom-add input[name="cprice"]{width:100px;font-family:'JetBrains Mono', monospace;}
 
 .section{margin-bottom:32px;}
 

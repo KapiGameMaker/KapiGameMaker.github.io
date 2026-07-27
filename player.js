@@ -7,6 +7,9 @@ function loadShop(){
   const shopId = getSelectedShopId();
   const shop = getShop(shopId);
   if(shop){
+    const titleEl = document.getElementById('shopTitle');
+    if(titleEl) titleEl.textContent = shop.name;
+    
     currentCatalog = [...shop.items];
     renderItems();
     resetShop();
@@ -17,15 +20,22 @@ function renderItems(){
   const list = document.getElementById('itemList');
   list.innerHTML = '';
   currentCatalog.forEach((item, idx) => {
+    // Check if item is already in cart (by catalog index)
+    const cartItem = cart.find(c => c.catalogIdx === idx);
+    const isBought = !!cartItem;
+    const info = item.info || "???: Try asking the DM for info about this item.";
+
     const wrap = document.createElement('div');
     wrap.className = 'item-row-wrap';
-    const info = item.info || "???: Try asking the DM for info about this item.";
     wrap.innerHTML = `
       <div class="item-row">
         <button type="button" class="item-name-btn" onclick="toggleItemInfo(${idx})">${item.name}<span class="item-cat">${item.cat}</span></button>
         <div class="item-price">${fmt(item.price)} gp</div>
-        <input type="number" class="qty-input" id="qty-${idx}" value="1" min="1">
-        <button type="button" class="buy-btn" onclick="buyItem(${idx})">ซื้อ</button>
+        <input type="number" class="qty-input" id="qty-${idx}" value="${isBought ? cartItem.qty : 1}" min="1" ${isBought ? 'disabled' : ''}>
+        ${isBought 
+          ? `<button type="button" class="cancel-btn" onclick="removeItem(${idx})">ยกเลิก</button>`
+          : `<button type="button" class="buy-btn" onclick="buyItem(${idx})">ซื้อ</button>`
+        }
       </div>
       <div class="item-info-dropdown" id="info-${idx}" hidden>
         <p class="item-info-text">${info}</p>
@@ -52,20 +62,24 @@ function buyItem(idx){
   const qty = Math.max(1, parseInt(document.getElementById('qty-'+idx).value) || 1);
   const total = item.price * qty;
   gold -= total;
-  cart.push({name:item.name, qty, unit:item.price, total});
+  cart.push({name:item.name, qty, unit:item.price, total, catalogIdx: idx});
   updatePurse();
   renderReceipt();
+  renderItems(); // Refresh buttons
 }
 
-function addCustomItem(){
-  const name = document.getElementById('cname').value.trim();
-  const price = parseFloat(document.getElementById('cprice').value);
-  if(!name || isNaN(price) || price < 0) return;
-  currentCatalog.push({name, cat:"กำหนดเอง", price});
-  renderItems();
-  document.getElementById('cname').value = '';
-  document.getElementById('cprice').value = '';
+function removeItem(idx){
+  const cartIdx = cart.findIndex(c => c.catalogIdx === idx);
+  if(cartIdx > -1){
+    const item = cart[cartIdx];
+    gold += item.total;
+    cart.splice(cartIdx, 1);
+    updatePurse();
+    renderReceipt();
+    renderItems(); // Refresh buttons
+  }
 }
+
 
 function renderReceipt(){
   const box = document.getElementById('receiptBox');
@@ -96,11 +110,88 @@ function copyReceipt(){
   });
 }
 
+async function confirmOrder(){
+  const webhookUrl = getDiscordWebhookUrl();
+  if(!webhookUrl){
+    alert('❌ DM ยังไม่ได้ตั้งค่า Discord Webhook กรุณาแจ้ง DM');
+    return;
+  }
+
+  if(cart.length === 0){
+    alert('❌ ยังไม่มีสินค้าในใบเสร็จ');
+    return;
+  }
+
+  const shopId = getSelectedShopId();
+  const shop = getShop(shopId);
+  const shopName = shop ? shop.name : 'ไม่ทราบชื่อร้าน';
+  const charName = document.getElementById('charName').value || 'ตัวละครไม่ระบุชื่อ';
+  
+  let itemLines = '';
+  cart.forEach(c => {
+    itemLines += `${c.name} จำนวน ${c.qty} ราคา ${fmt(c.total)} gp\n`;
+  });
+  const spent = cart.reduce((s,c)=>s+c.total,0);
+  
+  const embed = {
+    title: `🛒 คำสั่งซื้อใหม่จากร้าน ${shopName}`,
+    color: 13938551, // #D4AF37 (Gold)
+    fields: [
+      {
+        name: "👤 ผู้เล่น",
+        value: charName,
+        inline: true
+      },
+      {
+        name: "💰 ราคาสุทธิ",
+        value: `**${fmt(spent)} GP**`,
+        inline: true
+      },
+      {
+        name: "📋 รายการสินค้า",
+        value: "```\n" + itemLines + "```"
+      }
+    ],
+    timestamp: new Date().toISOString(),
+    footer: {
+      text: "D&D Shop Management System"
+    }
+  };
+
+  const status = document.getElementById('copyStatus');
+  status.textContent = '⏳ กำลังส่งข้อมูล...';
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ embeds: [embed] })
+    });
+
+    if(response.ok){
+      status.textContent = '✅ ยืนยันคำสั่งซื้อสำเร็จ! แจ้ง DM เรียบร้อย';
+      status.style.color = 'green';
+    } else {
+      throw new Error('Discord response not OK');
+    }
+  } catch (error) {
+    console.error('Error sending to Discord:', error);
+    status.textContent = '❌ ส่งไม่สำเร็จ กรุณาลองใหม่หรือคัดลอกใบเสร็จแทน';
+    status.style.color = 'red';
+  }
+  
+  setTimeout(() => {
+    status.textContent = '';
+    status.style.color = '';
+  }, 5000);
+}
+
 function resetShop(){
   gold = parseFloat(document.getElementById('startGold').value) || 0;
   cart = [];
   updatePurse();
   renderReceipt();
+  renderItems();
 }
 
 function playerRefreshShop(){

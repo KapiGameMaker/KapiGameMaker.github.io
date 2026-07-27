@@ -116,14 +116,37 @@ function switchDMTab(tab){
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   event.target.classList.add('active');
   
+  const manageTab = document.getElementById('manageTab');
+  const selectTab = document.getElementById('selectTab');
+  const settingsTab = document.getElementById('settingsTab');
+
+  manageTab.classList.add('hidden');
+  selectTab.classList.add('hidden');
+  settingsTab.classList.add('hidden');
+
   if(tab === 'manage'){
-    document.getElementById('manageTab').classList.remove('hidden');
-    document.getElementById('selectTab').classList.add('hidden');
-  } else {
-    document.getElementById('manageTab').classList.add('hidden');
-    document.getElementById('selectTab').classList.remove('hidden');
+    manageTab.classList.remove('hidden');
+  } else if(tab === 'select') {
+    selectTab.classList.remove('hidden');
     renderShopSelector();
+  } else if(tab === 'settings') {
+    settingsTab.classList.remove('hidden');
+    loadSettings();
   }
+}
+
+function loadSettings(){
+  const webhookInput = document.getElementById('discordWebhookUrl');
+  webhookInput.value = getDiscordWebhookUrl();
+}
+
+function saveSettings(){
+  const url = document.getElementById('discordWebhookUrl').value.trim();
+  setDiscordWebhookUrl(url);
+  
+  const status = document.getElementById('settingsStatus');
+  status.textContent = '✅ บันทึกตั้งค่าสำเร็จ';
+  setTimeout(() => status.textContent = '', 3000);
 }
 
 function renderShopSelector(){

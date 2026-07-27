@@ -19,6 +19,7 @@
   <div class="tabs">
     <button class="tab-btn active" onclick="switchDMTab('manage')">⚙️ จัดการร้าน</button>
     <button class="tab-btn" onclick="switchDMTab('select')">🎯 เลือกร้านให้ผู้เล่น</button>
+    <button class="tab-btn" onclick="switchDMTab('settings')">🛠️ ตั้งค่าระบบ</button>
   </div>
 
   <!-- MANAGE SHOPS TAB -->
@@ -39,6 +40,19 @@
       <div id="shopSelector" style="display:flex; flex-direction:column; gap:10px;"></div>
       <button class="buy-btn" onclick="syncShopToPlayer()" style="margin-top:16px; width:100%;">📤 ส่งให้ผู้เล่น</button>
       <div class="sync-status" id="syncStatus"></div>
+    </div>
+  </div>
+
+  <!-- SETTINGS TAB -->
+  <div id="settingsTab" class="hidden">
+    <div class="shop-card">
+      <h3>ตั้งค่าระบบ</h3>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <label for="discordWebhookUrl">Discord Webhook URL (สำหรับรายงานคำสั่งซื้อ):</label>
+        <input type="text" id="discordWebhookUrl" placeholder="https://discord.com/api/webhooks/..." style="width:100%; padding: 8px; border: 1px solid var(--ink); border-radius: 4px; background: rgba(255,255,255,0.9);">
+        <button class="small-btn primary" onclick="saveSettings()" style="width:100%;">บันทึกตั้งค่า</button>
+      </div>
+      <div class="sync-status" id="settingsStatus"></div>
     </div>
   </div>
 
