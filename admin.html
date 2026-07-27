@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ผู้ดูแลระบบ — D&D Shop Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .admin-container { max-width: 800px; margin: 40px auto; padding: 20px; }
+  .dm-list { margin-top: 20px; }
+  .dm-card { background: rgba(255,255,255,0.4); border: 1px solid var(--line); padding: 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+  .dm-info { flex: 1; }
+  .dm-actions { display: flex; gap: 10px; }
+  .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 100; }
+  .modal-content { background: var(--parchment); padding: 30px; border-radius: 8px; border: 2px solid var(--gold); width: 100%; max-width: 400px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center;">
+    <h1 style="margin:0;">🛡️ ผู้ดูแลระบบ (Admin)</h1>
+    <button class="small-btn" onclick="logout()">ออกจากระบบ</button>
+  </div>
+</div>
+
+<div class="admin-container">
+  <div class="shop-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h2 style="margin:0;">👥 รายชื่อ DM ทั้งหมด</h2>
+      <button class="small-btn primary" onclick="showAddDM()">+ เพิ่ม DM ใหม่</button>
+    </div>
+    
+    <div id="dmList" class="dm-list"></div>
+  </div>
+
+  <div class="shop-card" style="margin-top: 30px;">
+    <h2 style="margin-bottom: 20px;">⚙️ การตั้งค่าการสำรองข้อมูล (GitHub Sync)</h2>
+    <p style="font-size: 14px; color: var(--ink-soft); margin-bottom: 20px;">
+      เชื่อมต่อกับ GitHub เพื่อเก็บข้อมูลถาวร ข้อมูลจะถูกบันทึกเป็นไฟล์ JSON ใน Repository ของคุณ
+    </p>
+    
+    <div class="login-form" style="border:none; padding:0; max-width: 100%;">
+      <div class="input-group">
+        <label>GitHub Personal Access Token (PAT)</label>
+        <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
+        <small style="color: var(--ink-soft);">สร้างได้ที่ GitHub Settings > Developer Settings > Tokens (classic) พร้อมสิทธิ์ 'repo'</small>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div class="input-group">
+          <label>GitHub Owner (Username)</label>
+          <input type="text" id="ghOwner" placeholder="เช่น KapiGameMaker">
+        </div>
+        <div class="input-group">
+          <label>Repository Name</label>
+          <input type="text" id="ghRepo" placeholder="เช่น dnd-shop-data">
+        </div>
+      </div>
+      <div class="input-group">
+        <label>File Path (ใน Repo)</label>
+        <input type="text" id="ghPath" placeholder="เช่น data/dnd_data.json" value="dnd_data.json">
+      </div>
+      
+      <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+        <button class="buy-btn" onclick="saveGHSettings()" style="flex: 1;">บันทึกและเชื่อมต่อ</button>
+        <button class="small-btn" onclick="syncNow()" id="syncBtn" style="flex: 1;">ซิงค์ข้อมูลเดี๋ยวนี้</button>
+      </div>
+      <div id="syncStatus" style="margin-top: 15px; font-size: 14px; text-align: center;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Add/Edit DM -->
+<div id="dmModal" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="modalTitle">เพิ่ม DM ใหม่</h3>
+    <div class="login-form" style="border:none; padding:0;">
+      <div class="input-group">
+        <label>ชื่อผู้ใช้ (Username)</label>
+        <input type="text" id="dmUsername" placeholder="เช่น dm_john">
+      </div>
+      <div class="input-group">
+        <label>รหัสผ่าน (Password)</label>
+        <input type="text" id="dmPassword" placeholder="เช่น pass123">
+      </div>
+      <input type="hidden" id="dmId">
+    </div>
+    <div style="display:flex; gap:10px; margin-top:24px;">
+      <button class="buy-btn" onclick="saveDM()" style="flex:1;">บันทึก</button>
+      <button class="small-btn" onclick="closeModal()" style="flex:1;">ยกเลิก</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+  // Auth Check
+  const user = getCurrentUser();
+  if(!user || user.role !== 'admin'){
+    window.location.href = 'index.html';
+  }
+
+  function renderDMs(){
+    const users = getUsers();
+    const dms = users.filter(u => u.role === 'dm');
+    const list = document.getElementById('dmList');
+    list.innerHTML = '';
+    
+    if(dms.length === 0){
+      list.innerHTML = '<p style="text-align:center; color:var(--ink-soft);">ยังไม่มี DM ในระบบ</p>';
+      return;
+    }
+
+    dms.forEach(dm => {
+      const card = document.createElement('div');
+      card.className = 'dm-card';
+      card.innerHTML = `
+        <div class="dm-info">
+          <div style="font-weight:bold; font-size:18px;">${dm.username}</div>
+          <div style="font-size:14px; color:var(--ink-soft);">รหัสผ่าน: ${dm.password}</div>
+        </div>
+        <div class="dm-actions">
+          <button class="small-btn" onclick="showEditDM('${dm.id}')">แก้ไข</button>
+          <button class="small-btn" style="background:#e08a8a; color:white; border-color:#e08a8a;" onclick="deleteDM('${dm.id}')">ลบ</button>
+        </div>
+      `;
+      list.appendChild(card);
+    });
+  }
+
+  function showAddDM(){
+    document.getElementById('modalTitle').textContent = 'เพิ่ม DM ใหม่';
+    document.getElementById('dmId').value = '';
+    document.getElementById('dmUsername').value = '';
+    document.getElementById('dmPassword').value = '';
+    document.getElementById('dmModal').classList.remove('hidden');
+  }
+
+  function showEditDM(id){
+    const dm = getUsers().find(u => u.id === id);
+    if(!dm) return;
+    document.getElementById('modalTitle').textContent = 'แก้ไข DM';
+    document.getElementById('dmId').value = dm.id;
+    document.getElementById('dmUsername').value = dm.username;
+    document.getElementById('dmPassword').value = dm.password;
+    document.getElementById('dmModal').classList.remove('hidden');
+  }
+
+  function closeModal(){
+    document.getElementById('dmModal').classList.add('hidden');
+  }
+
+  function saveDM(){
+    const id = document.getElementById('dmId').value;
+    const username = document.getElementById('dmUsername').value.trim();
+    const password = document.getElementById('dmPassword').value.trim();
+    
+    if(!username || !password) return alert('กรุณากรอกข้อมูลให้ครบ');
+    
+    let users = getUsers();
+    
+    // Check duplicate username (if new or changed)
+    const existing = users.find(u => u.username === username && u.id !== id);
+    if(existing) return alert('ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว');
+
+    if(id){
+      // Edit
+      users = users.map(u => u.id === id ? {...u, username, password} : u);
+    } else {
+      // Add
+      const newDm = {
+        id: 'dm_' + Date.now(),
+        username,
+        password,
+        role: 'dm'
+      };
+      users.push(newDm);
+    }
+    
+    saveUsers(users);
+    closeModal();
+    renderDMs();
+  }
+
+  function deleteDM(id){
+    if(!confirm('คุณแน่ใจหรือไม่ที่จะลบ DM นี้? (ข้อมูลร้านค้าของ DM จะยังคงอยู่แต่เข้าถึงไม่ได้)')) return;
+    let users = getUsers();
+    users = users.filter(u => u.id !== id);
+    saveUsers(users);
+    renderDMs();
+  }
+
+  // GitHub Settings functions
+  function loadGHSettings(){
+    const config = getGHConfig();
+    if(config){
+      document.getElementById('ghToken').value = config.token || '';
+      document.getElementById('ghOwner').value = config.owner || '';
+      document.getElementById('ghRepo').value = config.repo || '';
+      document.getElementById('ghPath').value = config.path || 'dnd_data.json';
+    }
+  }
+
+  function saveGHSettings(){
+    const config = {
+      token: document.getElementById('ghToken').value.trim(),
+      owner: document.getElementById('ghOwner').value.trim(),
+      repo: document.getElementById('ghRepo').value.trim(),
+      path: document.getElementById('ghPath').value.trim() || 'dnd_data.json'
+    };
+    
+    if(!config.token || !config.owner || !config.repo){
+      return alert('กรุณากรอกข้อมูล GitHub ให้ครบ (Token, Owner, Repo)');
+    }
+    
+    saveGHConfig(config);
+    alert('✅ บันทึกการตั้งค่า GitHub สำเร็จ');
+    syncNow(); // Try to sync immediately
+  }
+
+  async function syncNow(){
+    const status = document.getElementById('syncStatus');
+    const btn = document.getElementById('syncBtn');
+    
+    status.textContent = '⏳ กำลังซิงค์ข้อมูล...';
+    status.style.color = 'var(--wine)';
+    btn.disabled = true;
+
+    try {
+      // Pull first to get latest from GH, then push local changes
+      const pulled = await pullFromGitHub();
+      const pushed = await pushToGitHub();
+      
+      if(pushed){
+        status.textContent = '✅ ซิงค์ข้อมูลกับ GitHub สำเร็จ (' + new Date().toLocaleTimeString() + ')';
+        status.style.color = 'green';
+        renderDMs(); // Refresh list in case users were updated
+      } else {
+        status.textContent = '❌ ซิงค์ไม่สำเร็จ กรุณาตรวจสอบการตั้งค่าและ Token';
+        status.style.color = 'red';
+      }
+    } catch (e) {
+      status.textContent = '❌ เกิดข้อผิดพลาด: ' + e.message;
+      status.style.color = 'red';
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  renderDMs();
+  loadGHSettings();
+</script>
+</body>
+</html>

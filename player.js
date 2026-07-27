@@ -3,23 +3,60 @@ let gold = 100;
 let cart = [];
 let currentCatalog = [...DEFAULT_CATALOG];
 
+let searchQuery = '';
+
 function loadShop(){
-  const shopId = getSelectedShopId();
-  const shop = getShop(shopId);
-  if(shop){
-    const titleEl = document.getElementById('shopTitle');
-    if(titleEl) titleEl.textContent = shop.name;
-    
-    currentCatalog = [...shop.items];
-    renderItems();
-    resetShop();
+  const user = getCurrentUser();
+  if(!user || user.role !== 'player') return window.location.href = 'index.html';
+
+  const charNameEl = document.getElementById('charName');
+  if(charNameEl) charNameEl.value = user.username;
+  
+  const parties = getParties();
+  const party = parties.find(p => p.id === user.partyId);
+  
+  if(party && party.assignedShopId){
+    const shop = getShop(party.assignedShopId);
+    if(shop){
+      const titleEl = document.getElementById('shopTitle');
+      if(titleEl) titleEl.textContent = shop.name;
+      
+      currentCatalog = [...shop.items];
+      searchQuery = ''; // Reset search on load
+      const searchInput = document.getElementById('searchInput');
+      if(searchInput) searchInput.value = '';
+      
+      renderItems();
+      resetShop();
+      return;
+    }
   }
+  
+  // No shop assigned
+  const titleEl = document.getElementById('shopTitle');
+  if(titleEl) titleEl.textContent = 'ยังไม่มีร้านค้าเปิดให้บริการ';
+  currentCatalog = [];
+  renderItems();
+  resetShop();
 }
 
 function renderItems(){
   const list = document.getElementById('itemList');
   list.innerHTML = '';
-  currentCatalog.forEach((item, idx) => {
+  
+  const filtered = currentCatalog.map((item, originalIdx) => ({...item, originalIdx}))
+    .filter(item => {
+      const q = searchQuery.toLowerCase();
+      return item.name.toLowerCase().includes(q) || item.cat.toLowerCase().includes(q);
+    });
+
+  if(filtered.length === 0 && currentCatalog.length > 0){
+    list.innerHTML = '<p style="text-align:center; padding:20px; color:var(--ink-soft);">ไม่พบไอเทมที่ค้นหา</p>';
+    return;
+  }
+
+  filtered.forEach((item) => {
+    const idx = item.originalIdx;
     // Check if item is already in cart (by catalog index)
     const cartItem = cart.find(c => c.catalogIdx === idx);
     const isBought = !!cartItem;
@@ -43,6 +80,11 @@ function renderItems(){
     `;
     list.appendChild(wrap);
   });
+}
+
+function handleSearch(val){
+  searchQuery = val;
+  renderItems();
 }
 
 function toggleItemInfo(idx){
@@ -111,27 +153,29 @@ function copyReceipt(){
 }
 
 async function confirmOrder(){
-  const webhookUrl = getDiscordWebhookUrl();
+  const user = getCurrentUser();
+  if(!user) return;
+  
+  const webhookUrl = getDiscordWebhookUrl(user.dmId);
   if(!webhookUrl){
     alert('❌ DM ยังไม่ได้ตั้งค่า Discord Webhook กรุณาแจ้ง DM');
     return;
   }
-
-  if(cart.length === 0){
-    alert('❌ ยังไม่มีสินค้าในใบเสร็จ');
-    return;
-  }
-
-  const shopId = getSelectedShopId();
+  if(!user) return;
+  const parties = getParties();
+  const party = parties.find(p => p.id === user.partyId);
+  const shopId = party ? party.assignedShopId : null;
   const shop = getShop(shopId);
   const shopName = shop ? shop.name : 'ไม่ทราบชื่อร้าน';
-  const charName = document.getElementById('charName').value || 'ตัวละครไม่ระบุชื่อ';
+  const charName = document.getElementById('charName').value || user.username;
   
   let itemLines = '';
   cart.forEach(c => {
     itemLines += `${c.name} จำนวน ${c.qty} ราคา ${fmt(c.total)} gp\n`;
   });
   const spent = cart.reduce((s,c)=>s+c.total,0);
+  const startGold = parseFloat(document.getElementById('startGold').value) || 0;
+  const remainingGold = gold;
   
   const embed = {
     title: `🛒 คำสั่งซื้อใหม่จากร้าน ${shopName}`,
@@ -143,9 +187,19 @@ async function confirmOrder(){
         inline: true
       },
       {
-        name: "💰 ราคาสุทธิ",
-        value: `**${fmt(spent)} GP**`,
+        name: "💰 เงินตั้งต้น",
+        value: `${fmt(startGold)} GP`,
         inline: true
+      },
+      {
+        name: "💸 เงินคงเหลือ",
+        value: `**${fmt(remainingGold)} GP**`,
+        inline: true
+      },
+      {
+        name: "🧾 ยอดซื้อทั้งหมด",
+        value: `**${fmt(spent)} GP**`,
+        inline: false
       },
       {
         name: "📋 รายการสินค้า",
@@ -187,11 +241,20 @@ async function confirmOrder(){
 }
 
 function resetShop(){
-  gold = parseFloat(document.getElementById('startGold').value) || 0;
-  cart = [];
+  const startGoldVal = parseFloat(document.getElementById('startGold').value) || 0;
+  const spent = cart.reduce((s,c)=>s+c.total,0);
+  gold = startGoldVal - spent;
+  
   updatePurse();
   renderReceipt();
   renderItems();
+}
+
+function clearCart(){
+  if(confirm('ต้องการล้างรายการในใบเสร็จทั้งหมดใช่หรือไม่?')){
+    cart = [];
+    resetShop();
+  }
 }
 
 function playerRefreshShop(){
@@ -199,8 +262,17 @@ function playerRefreshShop(){
 }
 
 function logout(){
+  sessionStorage.removeItem('currentUser');
   window.location.href = 'index.html';
 }
+
+// Auth Check
+(function(){
+  const user = getCurrentUser();
+  if(!user || user.role !== 'player'){
+    window.location.href = 'index.html';
+  }
+})();
 
 document.getElementById('startGold').addEventListener('change', resetShop);
 

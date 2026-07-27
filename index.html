@@ -13,20 +13,27 @@
 <div id="loginScreen" class="login-screen">
   <div class="login-card">
     <h1>ร้านค้าแห่งดันเจี้ยน</h1>
-    <p class="tagline">เข้าเล่นเป็นผู้เล่นหรือ DM</p>
+    <p class="tagline">ใช้งานร้านค้าเป็น Player หรือ DM?</p>
     
     <div class="role-selector">
-      <button type="button" class="role-btn active" onclick="selectRole('player'); return false;">🎲 ผู้เล่น (Player)</button>
-      <button type="button" class="role-btn" onclick="selectRole('dm'); return false;">👑 ผู้จัดเล่น (DM)</button>
+      <button type="button" class="role-btn active" data-role="player" onclick="selectRole('player'); return false;">🎲 Player</button>
+      <button type="button" class="role-btn" data-role="dm" onclick="selectRole('dm'); return false;">👑 DM</button>
+      <button type="button" class="role-btn" data-role="admin" onclick="selectRole('admin'); return false;">🛠️ Admin</button>
     </div>
 
-    <div id="dmSection" class="dm-login hidden">
-      <label>รหัส DM</label>
-      <input type="password" id="dmCode" placeholder="กรอกรหัสผ่าน" onkeydown="if(event.key==='Enter') enterShop()">
+    <div class="login-form">
+      <div class="input-group">
+        <label>ชื่อผู้ใช้ (Username)</label>
+        <input type="text" id="username" placeholder="กรอกชื่อผู้ใช้" onkeydown="if(event.key==='Enter') document.getElementById('password').focus()">
+      </div>
+      <div class="input-group">
+        <label>รหัสผ่าน (Password)</label>
+        <input type="password" id="password" placeholder="กรอกรหัสผ่าน" onkeydown="if(event.key==='Enter') enterShop()">
+      </div>
       <div id="errorMsg" class="error-msg"></div>
     </div>
 
-    <button type="button" class="enter-btn" onclick="enterShop()">เข้าสู่ร้านค้า</button>
+    <button type="button" class="enter-btn" onclick="enterShop()">เข้าสู่ระบบ</button>
   </div>
 </div>
 

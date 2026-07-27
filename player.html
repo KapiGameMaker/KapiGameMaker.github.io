@@ -22,7 +22,7 @@
   <div class="setup">
     <div class="field">
       <label>ชื่อตัวละคร</label>
-      <input type="text" id="charName" placeholder="เช่น Elandra Moonwhisper" value="ตัวละครของฉัน">
+      <input type="text" id="charName" placeholder="ชื่อตัวละคร" value="" readonly>
     </div>
     <div class="field">
       <label>ทองตั้งต้น (gp)</label>
@@ -37,8 +37,10 @@
 
   <div class="section">
     <div class="ledger-title">สินค้าในร้าน <span class="hint">กดซื้อเพื่อหักทองอัตโนมัติ</span></div>
+    <div style="margin-bottom: 12px;">
+      <input type="text" id="searchInput" placeholder="🔍 ค้นหาไอเทมหรือหมวดหมู่..." oninput="handleSearch(this.value)" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--line); font-family: inherit; background: rgba(255,255,255,0.5);">
+    </div>
     <div id="itemList"></div>
-
   </div>
 
   <div class="section">
@@ -50,7 +52,7 @@
       <button class="buy-btn" onclick="confirmOrder()" style="width:100%;">ยืนยันคำสั่งซื้อ (ส่งเข้า Discord)</button>
       <div style="display: flex; gap: 8px;">
         <button class="copy-btn" onclick="copyReceipt()" style="flex: 1;">คัดลอกใบเสร็จ</button>
-        <button class="reset-btn" onclick="resetShop()" style="flex: 1;">เริ่มใหม่</button>
+        <button class="reset-btn" onclick="clearCart()" style="flex: 1; background-color: #e08a8a; border-color: #e08a8a;">ล้างใบเสร็จ</button>
       </div>
     </div>
     <span class="copy-status" id="copyStatus"></span>

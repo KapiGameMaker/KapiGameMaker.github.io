@@ -1,5 +1,5 @@
 // Data Management
-const DM_PASSWORD = 'P16b1p16_';
+const DEFAULT_ADMIN = { id: 'admin_0', username: 'plume2546', password: 'P16b1p16_', role: 'admin' };
 
 const DEFAULT_CATALOG = [
   {name:"ดาบสั้น (Shortsword)", cat:"อาวุธ", price:10},
@@ -18,18 +18,98 @@ const DEFAULT_CATALOG = [
   {name:"ชุดปฐมพยาบาล (Healer's Kit)", cat:"อุปกรณ์", price:5},
 ];
 
-function initializeData(){
+async function initializeData(){
+  const config = getGHConfig();
+  if(config && config.token){
+    await pullFromGitHub();
+  }
+
+  let users = getUsers();
+  
+  const adminIdx = users.findIndex(u => u.id === DEFAULT_ADMIN.id);
+  if (adminIdx > -1) {
+    // Force update admin credentials and role to match code
+    users[adminIdx].username = DEFAULT_ADMIN.username;
+    users[adminIdx].password = DEFAULT_ADMIN.password;
+    users[adminIdx].role = DEFAULT_ADMIN.role;
+  } else {
+    // Ensure the default admin exists
+    const duplicateIdx = users.findIndex(u => u.username === DEFAULT_ADMIN.username);
+    if (duplicateIdx > -1) {
+      users[duplicateIdx].id = DEFAULT_ADMIN.id;
+      users[duplicateIdx].password = DEFAULT_ADMIN.password;
+      users[duplicateIdx].role = DEFAULT_ADMIN.role;
+    } else {
+      users.push(DEFAULT_ADMIN);
+    }
+  }
+  saveUsers(users);
+
+  if(!localStorage.getItem('parties')){
+    localStorage.setItem('parties', JSON.stringify([]));
+  }
   if(!localStorage.getItem('shops')){
     const initialShops = {
       'shop_0': {
         id: 'shop_0',
         name: 'สตาร์ทกิตเกอร์',
-        items: [...DEFAULT_CATALOG]
+        items: [...DEFAULT_CATALOG],
+        dmId: 'admin_0' // Default shop belongs to admin or a generic DM
       }
     };
     localStorage.setItem('shops', JSON.stringify(initialShops));
     localStorage.setItem('selectedShop', 'shop_0');
   }
+}
+
+function getUsers(){
+  try {
+    const data = JSON.parse(localStorage.getItem('users') || '[]');
+    return Array.isArray(data) ? data : [];
+  } catch (e) {
+    console.error("Error parsing users from localStorage", e);
+    return [];
+  }
+}
+
+function saveUsers(users){
+  localStorage.setItem('users', JSON.stringify(users));
+  triggerAutoSync();
+}
+
+function getParties(){
+  return JSON.parse(localStorage.getItem('parties') || '[]');
+}
+
+function saveParties(parties){
+  localStorage.setItem('parties', JSON.stringify(parties));
+  triggerAutoSync();
+}
+
+function getCurrentUser(){
+  return JSON.parse(sessionStorage.getItem('currentUser') || 'null');
+}
+
+function setCurrentUser(user){
+  sessionStorage.setItem('currentUser', JSON.stringify(user));
+}
+
+function logout(){
+  sessionStorage.removeItem('currentUser');
+  window.location.href = 'index.html';
+}
+
+function login(username, password){
+  const users = getUsers();
+  const user = users.find(u => u.username === username && u.password === password);
+  if(user){
+    setCurrentUser(user);
+    if(user.role === 'admin') window.location.href = 'admin.html';
+    else if(user.role === 'dm') window.location.href = 'dm.html';
+    else if(user.role === 'player') window.location.href = 'player.html';
+    return true;
+  }
+  return false;
 }
 
 function getShops(){
@@ -38,6 +118,20 @@ function getShops(){
 
 function saveShops(shops){
   localStorage.setItem('shops', JSON.stringify(shops));
+  triggerAutoSync();
+}
+
+function getMyShops(){
+  const user = getCurrentUser();
+  const shops = getShops();
+  if(!user) return {};
+  if(user.role === 'admin') return shops; // Admin can see all for now or manage
+  
+  const myShops = {};
+  Object.values(shops).forEach(s => {
+    if(s.dmId === user.id) myShops[s.id] = s;
+  });
+  return myShops;
 }
 
 function getSelectedShopId(){
@@ -48,17 +142,126 @@ function setSelectedShopId(shopId){
   localStorage.setItem('selectedShop', shopId);
 }
 
-function getDiscordWebhookUrl(){
+function getDiscordWebhookUrl(dmId){
+  const webhooks = JSON.parse(localStorage.getItem('dmWebhooks') || '{}');
+  if(dmId) return webhooks[dmId] || '';
   return localStorage.getItem('discordWebhookUrl') || '';
 }
 
-function setDiscordWebhookUrl(url){
-  localStorage.setItem('discordWebhookUrl', url);
+function setDiscordWebhookUrl(dmId, url){
+  const webhooks = JSON.parse(localStorage.getItem('dmWebhooks') || '{}');
+  if(dmId) {
+    webhooks[dmId] = url;
+    localStorage.setItem('dmWebhooks', JSON.stringify(webhooks));
+  } else {
+    localStorage.setItem('discordWebhookUrl', url);
+  }
+  triggerAutoSync();
 }
 
 function getShop(shopId){
   const shops = getShops();
   return shops[shopId] || null;
+}
+
+// GitHub Sync Management
+function getGHConfig(){
+  return JSON.parse(localStorage.getItem('ghConfig') || 'null');
+}
+
+function saveGHConfig(config){
+  localStorage.setItem('ghConfig', JSON.stringify(config));
+}
+
+async function pushToGitHub(){
+  const config = getGHConfig();
+  if(!config || !config.token || !config.owner || !config.repo) return;
+
+  const data = {
+    users: getUsers(),
+    parties: getParties(),
+    shops: getShops(),
+    dmWebhooks: JSON.parse(localStorage.getItem('dmWebhooks') || '{}'),
+    lastUpdated: new Date().toISOString()
+  };
+
+  const url = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path || 'dnd_data.json'}`;
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+
+  try {
+    // Get existing file for sha
+    const res = await fetch(url, {
+      headers: { 'Authorization': `token ${config.token}` }
+    });
+    
+    let sha = null;
+    if(res.status === 200){
+      const fileData = await res.json();
+      sha = fileData.sha;
+    }
+
+    const body = {
+      message: 'Update D&D Shop Data',
+      content: content
+    };
+    if(sha) body.sha = sha;
+
+    const saveRes = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${config.token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if(!saveRes.ok) throw new Error('GitHub Save Failed');
+    console.log('✅ Data synced to GitHub');
+    return true;
+  } catch (e) {
+    console.error('❌ GitHub Sync Error:', e);
+    return false;
+  }
+}
+
+async function pullFromGitHub(){
+  const config = getGHConfig();
+  if(!config || !config.token || !config.owner || !config.repo) return;
+
+  const url = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path || 'dnd_data.json'}`;
+  
+  try {
+    const res = await fetch(url, {
+      headers: { 'Authorization': `token ${config.token}` }
+    });
+    
+    if(res.status === 200){
+      const fileData = await res.json();
+      const content = decodeURIComponent(escape(atob(fileData.content)));
+      const data = JSON.parse(content);
+      
+      if(data.users) localStorage.setItem('users', JSON.stringify(data.users));
+      if(data.parties) localStorage.setItem('parties', JSON.stringify(data.parties));
+      if(data.shops) localStorage.setItem('shops', JSON.stringify(data.shops));
+      if(data.dmWebhooks) localStorage.setItem('dmWebhooks', JSON.stringify(data.dmWebhooks));
+      
+      console.log('✅ Data loaded from GitHub');
+      return true;
+    }
+    return false;
+  } catch (e) {
+    console.error('❌ GitHub Pull Error:', e);
+    return false;
+  }
+}
+
+// Global auto-sync trigger
+function triggerAutoSync(){
+  const config = getGHConfig();
+  if(config && config.token) {
+    // Debounce or just push for now
+    pushToGitHub();
+  }
 }
 
 // Formatting
@@ -71,35 +274,27 @@ let currentRole = 'player';
 
 function selectRole(role){
   currentRole = role;
-  document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
+  document.querySelectorAll('.role-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-role') === role);
+  });
   
-  const dmSection = document.getElementById('dmSection');
-  if(role === 'dm'){
-    dmSection.classList.remove('hidden');
-    document.getElementById('dmCode').focus();
-  } else {
-    dmSection.classList.add('hidden');
-    document.getElementById('errorMsg').textContent = '';
-  }
+  // Just focus username
+  document.getElementById('username').focus();
 }
 
 function enterShop(){
-  console.log('enterShop called, role:', currentRole);
-  if(currentRole === 'player'){
-    console.log('Navigating to player.html');
-    setTimeout(() => { window.location.href = 'player.html'; }, 100);
+  const user = document.getElementById('username').value.trim();
+  const pass = document.getElementById('password').value.trim();
+  const errorMsg = document.getElementById('errorMsg');
+  
+  if(login(user, pass)){
+    errorMsg.textContent = '';
   } else {
-    const code = document.getElementById('dmCode').value;
-    const errorMsg = document.getElementById('errorMsg');
-    if(code === DM_PASSWORD){
-      errorMsg.textContent = '';
-      console.log('Navigating to dm.html');
-      setTimeout(() => { window.location.href = 'dm.html'; }, 100);
-    } else {
-      errorMsg.textContent = '❌ รหัสไม่ถูกต้อง';
-      document.getElementById('dmCode').value = '';
-      document.getElementById('dmCode').focus();
-    }
+    errorMsg.textContent = '❌ ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+    document.getElementById('password').value = '';
+    document.getElementById('password').focus();
   }
 }
+
+// Auto init
+initializeData();

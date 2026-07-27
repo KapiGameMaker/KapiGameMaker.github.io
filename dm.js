@@ -2,7 +2,7 @@
 let currentDMTab = 'manage';
 
 function renderDMDashboard(){
-  const shops = getShops();
+  const shops = getMyShops();
   const container = document.getElementById('shopsContainer');
   container.innerHTML = '';
   
@@ -27,17 +27,21 @@ function renderDMDashboard(){
     
     card.innerHTML = `
       <div class="shop-card-header">
-        <h3>${shop.name}</h3>
+        <button class="shop-name-btn" onclick="toggleShopDetails('${shop.id}')">
+          ${shop.name}
+        </button>
         <div class="shop-actions">
           <button class="small-btn danger" onclick="deleteShop('${shop.id}')">ลบร้าน</button>
         </div>
       </div>
-      <div class="item-list-dm">${itemsHtml}</div>
-      <div class="add-item-dm">
-        <input type="text" placeholder="ชื่อไอเทม" class="item-name-input" id="iname_${shop.id}">
-        <input type="number" placeholder="ราคา" step="0.1" class="item-price-input" id="iprice_${shop.id}">
-        <input type="text" placeholder="หมวดหมู่" class="item-cat-input" id="icat_${shop.id}">
-        <button class="small-btn primary" onclick="addItemDM('${shop.id}')">เพิ่ม</button>
+      <div id="details_${shop.id}" class="hidden">
+        <div class="item-list-dm">${itemsHtml}</div>
+        <div class="add-item-dm">
+          <input type="text" placeholder="ชื่อไอเทม" class="item-name-input" id="iname_${shop.id}">
+          <input type="number" placeholder="ราคา" step="0.1" class="item-price-input" id="iprice_${shop.id}">
+          <input type="text" placeholder="หมวดหมู่" class="item-cat-input" id="icat_${shop.id}">
+          <button class="small-btn primary" onclick="addItemDM('${shop.id}')">เพิ่ม</button>
+        </div>
       </div>
     `;
     container.appendChild(card);
@@ -48,12 +52,14 @@ function createNewShop(){
   const name = document.getElementById('newShopName').value.trim();
   if(!name) return;
   
+  const user = getCurrentUser();
   const shops = getShops();
   const newId = 'shop_' + Date.now();
   shops[newId] = {
     id: newId,
     name: name,
-    items: [...DEFAULT_CATALOG]
+    items: [...DEFAULT_CATALOG],
+    dmId: user.id
   };
   saveShops(shops);
   document.getElementById('newShopName').value = '';
@@ -102,6 +108,11 @@ function editItemInfo(shopId, idx, value){
   }
 }
 
+function toggleShopDetails(shopId){
+  const el = document.getElementById('details_' + shopId);
+  if(el) el.classList.toggle('hidden');
+}
+
 function deleteShop(shopId){
   if(confirm('ลบร้านค้านี้จริงๆ หรือ?')){
     const shops = getShops();
@@ -111,23 +122,32 @@ function deleteShop(shopId){
   }
 }
 
-function switchDMTab(tab){
+function switchDMTab(tab, btn){
   currentDMTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
+  if(btn){
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
   
   const manageTab = document.getElementById('manageTab');
+  const partyTab = document.getElementById('partyTab');
   const selectTab = document.getElementById('selectTab');
   const settingsTab = document.getElementById('settingsTab');
 
   manageTab.classList.add('hidden');
+  partyTab.classList.add('hidden');
   selectTab.classList.add('hidden');
   settingsTab.classList.add('hidden');
 
   if(tab === 'manage'){
     manageTab.classList.remove('hidden');
+    renderDMDashboard();
+  } else if(tab === 'party') {
+    partyTab.classList.remove('hidden');
+    renderParties();
   } else if(tab === 'select') {
     selectTab.classList.remove('hidden');
+    renderPartySelector();
     renderShopSelector();
   } else if(tab === 'settings') {
     settingsTab.classList.remove('hidden');
@@ -136,13 +156,15 @@ function switchDMTab(tab){
 }
 
 function loadSettings(){
+  const user = getCurrentUser();
   const webhookInput = document.getElementById('discordWebhookUrl');
-  webhookInput.value = getDiscordWebhookUrl();
+  webhookInput.value = getDiscordWebhookUrl(user.id);
 }
 
 function saveSettings(){
+  const user = getCurrentUser();
   const url = document.getElementById('discordWebhookUrl').value.trim();
-  setDiscordWebhookUrl(url);
+  setDiscordWebhookUrl(user.id, url);
   
   const status = document.getElementById('settingsStatus');
   status.textContent = '✅ บันทึกตั้งค่าสำเร็จ';
@@ -150,53 +172,199 @@ function saveSettings(){
 }
 
 function renderShopSelector(){
-  const shops = getShops();
+  const shops = getMyShops();
   const selector = document.getElementById('shopSelector');
   selector.innerHTML = '';
   
-  let selectedShopId = getSelectedShopId();
-  
+  // Add a default option
+  const defaultOpt = document.createElement('option');
+  defaultOpt.value = '';
+  defaultOpt.textContent = '-- เลือกร้านค้า --';
+  selector.appendChild(defaultOpt);
+
   Object.values(shops).forEach(shop => {
-    const label = document.createElement('label');
-    label.style.display = 'flex';
-    label.style.alignItems = 'center';
-    label.style.gap = '10px';
-    label.style.padding = '10px';
-    label.style.borderRadius = '3px';
-    label.style.background = 'rgba(255,255,255,0.15)';
-    label.style.cursor = 'pointer';
-    
-    const radio = document.createElement('input');
-    radio.type = 'radio';
-    radio.name = 'selectedShop';
-    radio.value = shop.id;
-    radio.checked = selectedShopId === shop.id;
-    radio.onchange = () => {
-      setSelectedShopId(shop.id);
-    };
-    
-    label.appendChild(radio);
-    label.appendChild(document.createTextNode(`${shop.name} (${shop.items.length} ไอเทม)`));
-    selector.appendChild(label);
+    const opt = document.createElement('option');
+    opt.value = shop.id;
+    opt.textContent = `${shop.name} (${shop.items.length} ไอเทม)`;
+    selector.appendChild(opt);
   });
 }
 
-function syncShopToPlayer(){
+function renderPartySelector(){
+  const user = getCurrentUser();
+  const parties = getParties().filter(p => p.dmId === user.id);
+  const selector = document.getElementById('partySelector');
+  selector.innerHTML = '';
+  
+  const defaultOpt = document.createElement('option');
+  defaultOpt.value = '';
+  defaultOpt.textContent = '-- เลือกปาร์ตี้ --';
+  selector.appendChild(defaultOpt);
+
+  parties.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = p.name;
+    selector.appendChild(opt);
+  });
+  
+  selector.onchange = (e) => {
+    const pId = e.target.value;
+    const p = parties.find(x => x.id === pId);
+    if(p && p.assignedShopId){
+      document.getElementById('shopSelector').value = p.assignedShopId;
+    } else {
+      document.getElementById('shopSelector').value = '';
+    }
+  };
+}
+
+function syncShopToParty(){
+  const partyId = document.getElementById('partySelector').value;
+  const shopId = document.getElementById('shopSelector').value;
   const status = document.getElementById('syncStatus');
-  const selectedId = getSelectedShopId();
-  const shops = getShops();
-  if(!shops[selectedId]){
-    status.textContent = '❌ ยังไม่ได้เลือกร้าน';
-    setTimeout(() => status.textContent = '', 3000);
+  
+  if(!partyId){
+    status.textContent = '❌ กรุณาเลือกปาร์ตี้';
     return;
   }
-  status.textContent = '✅ ส่งร้านค้าให้ผู้เล่นสำเร็จ — ผู้เล่นกด 🔄 รีเฟรชร้านค้า เพื่อรับข้อมูลล่าสุด';
-  setTimeout(() => status.textContent = '', 4000);
+  
+  const parties = getParties();
+  const pIdx = parties.findIndex(p => p.id === partyId);
+  if(pIdx > -1){
+    parties[pIdx].assignedShopId = shopId;
+    saveParties(parties);
+    status.textContent = '✅ บันทึกการตั้งค่าร้านค้าสำหรับปาร์ตี้สำเร็จ';
+    setTimeout(() => status.textContent = '', 3000);
+  }
+}
+
+// PARTY MANAGEMENT
+function renderParties(){
+  const user = getCurrentUser();
+  const parties = getParties().filter(p => p.dmId === user.id);
+  const container = document.getElementById('partiesContainer');
+  container.innerHTML = '';
+  
+  const users = getUsers();
+
+  parties.forEach(p => {
+    const partyPlayers = users.filter(u => u.partyId === p.id);
+    const card = document.createElement('div');
+    card.className = 'shop-card';
+    
+    let playersHtml = '';
+    partyPlayers.forEach(pl => {
+      playersHtml += `
+        <div class="item-row-dm" style="grid-template-columns: 1fr 1fr 80px;">
+          <div style="display:flex; flex-direction:column;">
+            <span style="font-weight:bold;">${pl.username}</span>
+          </div>
+          <input type="text" value="${pl.password}" oninput="editPlayerPassword('${pl.id}', this.value)" placeholder="รหัสผ่าน">
+          <button class="small-btn danger" onclick="removePlayer('${pl.id}')">ลบ</button>
+        </div>
+      `;
+    });
+
+    card.innerHTML = `
+      <div class="shop-card-header">
+        <h3>ปาร์ตี้: ${p.name}</h3>
+        <button class="small-btn danger" onclick="deleteParty('${p.id}')">ลบปาร์ตี้</button>
+      </div>
+      <div class="item-list-dm">
+        <label style="font-size:12px; color:var(--ink-soft); margin-bottom:10px; display:block;">ผู้เล่นในปาร์ตี้ (Username / Password):</label>
+        ${playersHtml || '<p style="font-size:14px; color:var(--ink-soft);">ยังไม่มีผู้เล่น</p>'}
+      </div>
+      <div class="add-item-dm">
+        <input type="text" placeholder="ชื่อผู้เล่น (Username)" id="plname_${p.id}">
+        <input type="text" placeholder="รหัสผ่าน" id="plpass_${p.id}">
+        <button class="small-btn primary" onclick="addPlayer('${p.id}')">เพิ่มผู้เล่น</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function createNewParty(){
+  const name = document.getElementById('newPartyName').value.trim();
+  if(!name) return;
+  const user = getCurrentUser();
+  const parties = getParties();
+  parties.push({
+    id: 'party_' + Date.now(),
+    name: name,
+    dmId: user.id,
+    assignedShopId: ''
+  });
+  saveParties(parties);
+  document.getElementById('newPartyName').value = '';
+  renderParties();
+}
+
+function deleteParty(id){
+  if(!confirm('ลบปาร์ตี้นี้จริงๆ หรือ? (ผู้เล่นในปาร์ตี้จะถูกลบด้วย)')) return;
+  let parties = getParties();
+  parties = parties.filter(p => p.id !== id);
+  saveParties(parties);
+  
+  let users = getUsers();
+  users = users.filter(u => u.partyId !== id);
+  saveUsers(users);
+  
+  renderParties();
+}
+
+function addPlayer(partyId){
+  const username = document.getElementById('plname_' + partyId).value.trim();
+  const password = document.getElementById('plpass_' + partyId).value.trim();
+  if(!username || !password) return alert('กรุณากรอก Username และ Password');
+  
+  const users = getUsers();
+  if(users.find(u => u.username === username)) return alert('Username นี้ถูกใช้ไปแล้ว');
+  
+  const user = getCurrentUser();
+  users.push({
+    id: 'pl_' + Date.now(),
+    username,
+    password,
+    role: 'player',
+    partyId: partyId,
+    dmId: user.id
+  });
+  saveUsers(users);
+  renderParties();
+}
+
+function editPlayerPassword(id, pass){
+  if(!pass) return;
+  const users = getUsers();
+  const idx = users.findIndex(u => u.id === id);
+  if(idx > -1){
+    users[idx].password = pass;
+    saveUsers(users);
+  }
+}
+
+function removePlayer(id){
+  if(!confirm('ลบผู้เล่นนี้ออก?')) return;
+  let users = getUsers();
+  users = users.filter(u => u.id !== id);
+  saveUsers(users);
+  renderParties();
 }
 
 function logout(){
+  sessionStorage.removeItem('currentUser');
   window.location.href = 'index.html';
 }
+
+// Auth Check
+(function(){
+  const user = getCurrentUser();
+  if(!user || user.role !== 'dm'){
+    window.location.href = 'index.html';
+  }
+})();
 
 initializeData();
 renderDMDashboard();

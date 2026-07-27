@@ -12,33 +12,57 @@
 
 <div class="wrap">
   <div class="header">
-    <h1>ร้านค้าแห่งดันเจี้ยน — ผู้จัดเล่น</h1>
+    <h1>D&D Shop Management System — DM</h1>
     <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchDMTab('manage')">⚙️ จัดการร้าน</button>
-    <button class="tab-btn" onclick="switchDMTab('select')">🎯 เลือกร้านให้ผู้เล่น</button>
-    <button class="tab-btn" onclick="switchDMTab('settings')">🛠️ ตั้งค่าระบบ</button>
+    <button class="tab-btn active" onclick="switchDMTab('manage', this)">⚙️ จัดการร้าน</button>
+    <button class="tab-btn" onclick="switchDMTab('party', this)">👥 จัดการปาร์ตี้</button>
+    <button class="tab-btn" onclick="switchDMTab('select', this)">🎯 เลือกร้านให้ผู้เล่น</button>
+    <button class="tab-btn" onclick="switchDMTab('settings', this)">🛠️ ตั้งค่าระบบ</button>
   </div>
 
   <!-- MANAGE SHOPS TAB -->
-  <div id="manageTab" class="dm-dashboard">
-    <div class="new-shop">
-      <h3 style="margin-top:0;">➕ สร้างร้านใหม่</h3>
-      <input type="text" id="newShopName" placeholder="ชื่อร้านค้า (เช่น สตาร์ทกิตเกอร์, ปลายทาง)">
-      <button class="small-btn primary" onclick="createNewShop()" style="width:100%;">สร้างร้าน</button>
+  <div id="manageTab">
+    <div class="dm-dashboard">
+      <div class="new-shop">
+        <h3 style="margin-top:0;">➕ สร้างร้านใหม่</h3>
+        <input type="text" id="newShopName" placeholder="ชื่อร้านค้า (เช่น สตาร์ทกิตเกอร์, ปลายทาง)">
+        <button class="small-btn primary" onclick="createNewShop()" style="width:100%;">สร้างร้าน</button>
+      </div>
+  
+      <div id="shopsContainer"></div>
     </div>
+  </div>
 
-    <div id="shopsContainer"></div>
+  <!-- PARTY TAB -->
+  <div id="partyTab" class="hidden">
+    <div class="dm-dashboard">
+      <div class="new-shop">
+        <h3 style="margin-top:0;">➕ สร้างปาร์ตี้ใหม่</h3>
+        <input type="text" id="newPartyName" placeholder="ชื่อปาร์ตี้ (เช่น นักรบแห่งแสง)">
+        <button class="small-btn primary" onclick="createNewParty()" style="width:100%;">สร้างปาร์ตี้</button>
+      </div>
+      <div id="partiesContainer"></div>
+    </div>
   </div>
 
   <!-- SELECT SHOP TAB -->
   <div id="selectTab" class="hidden">
     <div class="shop-card">
       <h3>เลือกร้านให้ผู้เล่นดู</h3>
-      <div id="shopSelector" style="display:flex; flex-direction:column; gap:10px;"></div>
-      <button class="buy-btn" onclick="syncShopToPlayer()" style="margin-top:16px; width:100%;">📤 ส่งให้ผู้เล่น</button>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <label for="partySelector" style="font-size: 14px; color: var(--ink-soft);">เลือกปาร์ตี้:</label>
+          <select id="partySelector" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:4px; font-family:'EB Garamond', serif; font-size:16px; background:#fbf7ea;"></select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <label for="shopSelector" style="font-size: 14px; color: var(--ink-soft);">เลือกร้านค้าที่จะให้ปาร์ตี้นี้เห็น:</label>
+          <select id="shopSelector" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:4px; font-family:'EB Garamond', serif; font-size:16px; background:#fbf7ea;"></select>
+        </div>
+      </div>
+      <button class="buy-btn" onclick="syncShopToParty()" style="margin-top:16px; width:100%;">💾 บันทึกการตั้งค่า</button>
       <div class="sync-status" id="syncStatus"></div>
     </div>
   </div>
