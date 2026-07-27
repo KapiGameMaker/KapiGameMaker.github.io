@@ -12,11 +12,15 @@ function renderDMDashboard(){
     
     let itemsHtml = '';
     shop.items.forEach((item, idx) => {
+      const info = item.info || '';
       itemsHtml += `
         <div class="item-row-dm">
-          <div>${item.name} <span class="item-cat">${item.cat}</span></div>
-          <input type="number" value="${item.price}" id="price_${shop.id}_${idx}" step="0.1">
-          <button class="small-btn danger" onclick="removeItemDM('${shop.id}', ${idx})">ลบ</button>
+          <div class="item-row-dm-top">
+            <div class="item-row-dm-name">${item.name} <span class="item-cat">${item.cat}</span></div>
+            <input type="number" value="${item.price}" id="price_${shop.id}_${idx}" step="0.1" oninput="editItemPrice('${shop.id}', ${idx}, this.value)">
+            <button class="small-btn danger" onclick="removeItemDM('${shop.id}', ${idx})">ลบ</button>
+          </div>
+          <textarea class="item-info-input-dm" id="info_${shop.id}_${idx}" placeholder="ข้อมูลที่ผู้เล่นจะเห็นเมื่อกดชื่อไอเทม (ค่าเริ่มต้น: ??? ถาม DM)" oninput="editItemInfo('${shop.id}', ${idx}, this.value)">${info}</textarea>
         </div>
       `;
     });
@@ -81,6 +85,23 @@ function removeItemDM(shopId, idx){
   renderDMDashboard();
 }
 
+function editItemPrice(shopId, idx, value){
+  const shops = getShops();
+  if(shops[shopId] && shops[shopId].items[idx]){
+    const n = parseFloat(value);
+    if(!isNaN(n)) shops[shopId].items[idx].price = n;
+    saveShops(shops);
+  }
+}
+
+function editItemInfo(shopId, idx, value){
+  const shops = getShops();
+  if(shops[shopId] && shops[shopId].items[idx]){
+    shops[shopId].items[idx].info = value;
+    saveShops(shops);
+  }
+}
+
 function deleteShop(shopId){
   if(confirm('ลบร้านค้านี้จริงๆ หรือ?')){
     const shops = getShops();
@@ -139,8 +160,15 @@ function renderShopSelector(){
 
 function syncShopToPlayer(){
   const status = document.getElementById('syncStatus');
-  status.textContent = '✅ ส่งร้านค้าให้ผู้เล่นสำเร็จ';
-  setTimeout(() => status.textContent = '', 3000);
+  const selectedId = getSelectedShopId();
+  const shops = getShops();
+  if(!shops[selectedId]){
+    status.textContent = '❌ ยังไม่ได้เลือกร้าน';
+    setTimeout(() => status.textContent = '', 3000);
+    return;
+  }
+  status.textContent = '✅ ส่งร้านค้าให้ผู้เล่นสำเร็จ — ผู้เล่นกด 🔄 รีเฟรชร้านค้า เพื่อรับข้อมูลล่าสุด';
+  setTimeout(() => status.textContent = '', 4000);
 }
 
 function logout(){

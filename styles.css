@@ -303,6 +303,32 @@ h1{
 
 .item-row:last-child{border-bottom:none;}
 
+.item-name-btn{
+  font-family:'EB Garamond', serif;
+  font-size:17px;
+  text-align:left;
+  background:rgba(255,255,255,0.35);
+  border:1px solid transparent;
+  border-radius:3px;
+  padding:6px 10px;
+  cursor:pointer;
+  color:var(--ink);
+  transition:all 0.15s;
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.item-name-btn:hover{
+  background:rgba(255,255,255,0.6);
+  border-color:var(--gold);
+}
+
+.item-name-btn:active{
+  background:rgba(174,121,31,0.15);
+}
+
 .item-name{font-size:17px;}
 
 .item-cat{
@@ -311,6 +337,32 @@ h1{
   text-transform:uppercase;
   letter-spacing:0.4px;
   margin-left:8px;
+}
+
+.item-row-wrap{
+  border-bottom:1px solid var(--line);
+}
+
+.item-info-dropdown{
+  padding:10px 14px 14px;
+  background:rgba(255,255,255,0.2);
+  border-left:3px solid var(--gold);
+  margin:0 0 8px;
+  border-radius:0 0 4px 4px;
+  animation:infoSlide 0.2s ease-out;
+}
+
+@keyframes infoSlide{
+  from{opacity:0; transform:translateY(-4px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.item-info-text{
+  margin:0;
+  font-style:italic;
+  font-size:15px;
+  color:var(--ink-soft);
+  line-height:1.5;
 }
 
 .item-price{
@@ -516,22 +568,52 @@ h1{
 }
 
 .item-row-dm{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:10px;
+  background:rgba(255,255,255,0.15);
+  border-radius:3px;
+  margin-bottom:8px;
+}
+
+.item-row-dm-top{
   display:grid;
   grid-template-columns:1fr auto auto;
   gap:12px;
   align-items:center;
-  padding:8px;
-  background:rgba(255,255,255,0.15);
-  border-radius:3px;
 }
 
-.item-row-dm input{
-  width:60px;
+.item-row-dm-name{
+  font-size:15px;
+}
+
+.item-row-dm input[type="number"]{
+  width:70px;
   font-family:'JetBrains Mono', monospace;
   text-align:center;
   padding:5px;
   border:1px solid var(--line);
   border-radius:3px;
+}
+
+.item-info-input-dm{
+  width:100%;
+  min-height:60px;
+  resize:vertical;
+  font-family:'EB Garamond', serif;
+  font-size:14px;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:3px;
+  background:#fbf7ea;
+  color:var(--ink);
+  line-height:1.5;
+}
+
+.item-info-input-dm:focus{
+  outline:2px solid var(--gold-bright);
+  outline-offset:1px;
 }
 
 .new-shop{

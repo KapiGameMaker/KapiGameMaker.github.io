@@ -17,16 +17,28 @@ function renderItems(){
   const list = document.getElementById('itemList');
   list.innerHTML = '';
   currentCatalog.forEach((item, idx) => {
-    const row = document.createElement('div');
-    row.className = 'item-row';
-    row.innerHTML = `
-      <div class="item-name">${item.name}<span class="item-cat">${item.cat}</span></div>
-      <div class="item-price">${fmt(item.price)} gp</div>
-      <input type="number" class="qty-input" id="qty-${idx}" value="1" min="1">
-      <button class="buy-btn" onclick="buyItem(${idx})">ซื้อ</button>
+    const wrap = document.createElement('div');
+    wrap.className = 'item-row-wrap';
+    const info = item.info || "???: Try asking the DM for info about this item.";
+    wrap.innerHTML = `
+      <div class="item-row">
+        <button type="button" class="item-name-btn" onclick="toggleItemInfo(${idx})">${item.name}<span class="item-cat">${item.cat}</span></button>
+        <div class="item-price">${fmt(item.price)} gp</div>
+        <input type="number" class="qty-input" id="qty-${idx}" value="1" min="1">
+        <button type="button" class="buy-btn" onclick="buyItem(${idx})">ซื้อ</button>
+      </div>
+      <div class="item-info-dropdown" id="info-${idx}" hidden>
+        <p class="item-info-text">${info}</p>
+      </div>
     `;
-    list.appendChild(row);
+    list.appendChild(wrap);
   });
+}
+
+function toggleItemInfo(idx){
+  const panel = document.getElementById('info-' + idx);
+  if(!panel) return;
+  panel.hidden = !panel.hidden;
 }
 
 function updatePurse(){
