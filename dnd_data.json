@@ -618,10 +618,16 @@
       "cat": "Adventuring Gear",
       "price": 50,
       "desc": "น้ำหนัก: 6 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nลักษณะ: ชุดพรางตัวที่มีลักษณะเหมือนกับสัตว์ (Beast) หรือสัตว์ประหลาด (Monstrosity) เช่น สวมบทบาทเป็น Owlbear\n\nการจับผิดการปลอมตัว: หากสิ่งมีชีวิตอื่นต้องการดูให้ออกว่าคุณกำลังปลอมตัวอยู่ สิ่งมีชีวิตนั้นจะต้องใช้ Study action เพื่อตรวจส่องรูปลักษณ์ของคุณ และทอย DC 10 Intelligence (Investigation หรือ Nature) check ให้ผ่าน\n\nเงื่อนไขเพิ่มเติมในการตรวจจับ:\n\nสิ่งมีชีวิตนั้นจะได้รับ Advantage ในการทอยตรวจสอบ หากอยู่ภายในระยะ 30 ฟุต จากตัวคุณ\n\nสิ่งมีชีวิตนั้นจะ ผ่านการตรวจสอบทันทีโดยอัตโนมัติ หากคุณทำสิ่งใดก็ตามที่มอนสเตอร์ที่คุณปลอมตัวเป็นไม่สามารถทำได้"
+    },
+    {
+      "name": "Monster Hunter's Pack (ชุดอุปกรณ์นักล่ามอนสเตอร์)",
+      "cat": "Adventuring Gear",
+      "price": 33,
+      "desc": "น้ำหนัก: 48½ ปอนด์ (48.5 lb.)\n\nรายการอุปกรณ์ภายในชุด (Includes):\n\nChest (หีบไม้): 1 ใบ\n\nCrowbar (ชะแลง): 1 อัน\n\nHammer (ค้อน): 1 เล่ม\n\nWooden Stakes (หลักไม้): 3 อัน\n\nHoly Symbol (สัญลักษณ์ศักดิ์สิทธิ์): 1 ชิ้น\n\nFlask of Holy Water (ขวดน้ำมนต์): 1 ขวด\n\nSet of Manacles (ชุดกุญแจมือ): 1 ชุด\n\nSteel Mirror (กระจกเหล็ก): 1 บาน\n\nFlask of Oil (ขวดน้ำมัน): 1 ขวด\n\nTinderbox (กล่องจุดไฟ): 1 ชุด\n\nTorches (คบเพลิง): 3 เล่ม"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 21:39:54"
+  "lastUpdated": "28/7/2569 21:40:43"
 }
