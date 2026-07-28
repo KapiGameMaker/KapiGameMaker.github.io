@@ -361,10 +361,16 @@
       "cat": "Adventuring Gear",
       "price": 2,
       "desc": "น้ำหนัก: 0.25 ปอนด์ (¼ lb.)\n\nรายละเอียดคุณสมบัติ:\n\nแผ่นโลหะที่มีหนามแหลมสำหรับรัดไว้กับพื้นรองเท้าบูต\n\nสิ่งมีชีวิตที่สวมใส่หนามยึดเกาะนี้ จะไม่ล้มติดสถานะ Prone (ล้มคว่ำ) ขณะเคลื่อนที่ผ่านพื้นน้ำแข็งที่ลื่น (Slippery ice)"
+    },
+    {
+      "name": "Crossbow Bolt Case (กล่องใส่กระสุนหน้าไม้)",
+      "cat": "Adventuring Gear",
+      "price": 1,
+      "desc": "น้ำหนัก: 1 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nกล่องใส่ลูกหน้าไม้นี้สามารถบรรจุลูกหน้าไม้ (Bolts) ได้สูงสุด 20 ดอก"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 19:39:19"
+  "lastUpdated": "28/7/2569 19:41:00"
 }
