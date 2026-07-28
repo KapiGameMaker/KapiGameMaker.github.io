@@ -660,10 +660,16 @@
       "cat": "Adventuring Gear",
       "price": 0.1,
       "desc": "รายละเอียดคุณสมบัติ:\n\nความจุตัวอักษร: กระดาษพาร์ชเมนต์ 1 แผ่น สามารถใช้เขียนข้อความด้วยลายมือได้ประมาณ 250 คำ"
+    },
+    {
+      "name": "Perfume (น้ำหอม)",
+      "cat": "Adventuring Gear",
+      "price": 5,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nลักษณะ: บรรจุอยู่ในขวดขนาด 4 ออนซ์ (4-ounce vial)\n\nผลของการใช้งาน: เป็นเวลา 1 ชั่วโมง หลังจากที่ประโลมน้ำหอมใส่ร่างกาย คุณจะได้รับ Advantage ในการทอย Charisma (Persuasion) check เพื่อหว่านล้อมหรือโน้มน้าวใจมนุษย์ผู้มีท่าทีเฉยชา/เป็นกลาง (Indifferent Humanoid) ที่อยู่ในระยะ 5 ฟุต จากตัวคุณ"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 22:02:57"
+  "lastUpdated": "28/7/2569 22:04:07"
 }
