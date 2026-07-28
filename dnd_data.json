@@ -756,10 +756,16 @@
       "cat": "Adventuring Gear",
       "price": 2,
       "desc": "น้ำหนัก: 5 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nการใช้งาน: คุณสามารถใช้พลั่วขุดดินเพื่อขุดหลุมขนาด 5x5x5 ฟุต (5 feet on each side) บนพื้นดินหรือวัสดุที่มีลักษณะใกล้เคียงกันได้ โดยใช้เวลาทำงาน 1 ชั่วโมง"
+    },
+    {
+      "name": "Signal Whistle (นกหวีดส่งสัญญาณ)",
+      "cat": "Adventuring Gear",
+      "price": 0.05,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nการใช้งาน: เมื่อเป่านกหวีดนี้โดยใช้ Utilize action จะส่งเสียงสัญญาณดังที่สามารถได้ยินไปไกลสูงสุดถึง 600 ฟุต (600 feet)"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 22:18:57"
+  "lastUpdated": "28/7/2569 22:29:36"
 }
