@@ -171,7 +171,18 @@
     "shop_1785199690839": {
       "id": "shop_1785199690839",
       "name": "666",
-      "items": [],
+      "items": [
+        {
+          "name": "ดาบสั้น (Shortsword)",
+          "cat": "อาวุธ",
+          "price": 10
+        },
+        {
+          "name": "ธนูยาว (Longbow)",
+          "cat": "อาวุธ",
+          "price": 50
+        }
+      ],
       "dmId": "dm_1785191399831"
     }
   },
@@ -250,5 +261,5 @@
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 07:48:12"
+  "lastUpdated": "28/7/2569 07:48:30"
 }
