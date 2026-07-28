@@ -792,10 +792,16 @@
       "cat": "Adventuring Gear",
       "price": 0.1,
       "desc": "รายละเอียดคุณสมบัติ:\n\nความยาว: เชือกเส้นเล็กนี้มีความยาว 10 ฟุต (10 feet)\n\nการใช้งาน: คุณสามารถใช้ Utilize action เพื่อผูกเงื่อนกับเชือกเส้นนี้ได้"
+    },
+    {
+      "name": "Tent (เต็นท์พักแรม)",
+      "cat": "Adventuring Gear",
+      "price": 2,
+      "desc": "น้ำหนัก: 20 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nความจุ: เต็นท์ 1 หลัง สามารถรองรับสิ่งมีชีวิตขนาดเล็ก (Small) หรือขนาดปานกลาง (Medium) ได้สูงสุด 2 ตัว (หรือ 2 คน) สำหรับใช้นอนพักผ่อน"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 22:40:38"
+  "lastUpdated": "28/7/2569 22:43:54"
 }
