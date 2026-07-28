@@ -481,10 +481,16 @@
       "cat": "Adventuring Gear",
       "price": 0.02,
       "desc": "รายละเอียดคุณสมบัติ:\n\nเมื่อใช้ร่วมกับน้ำหมึก (Ink) ปากกาหมึกนี้ใช้สำหรับจดบันทึก เขียนหนังสือ หรือวาดภาพ"
+    },
+    {
+      "name": "Insect Repellent - Block of Incense (ยากันแมลง แบบแท่งกำยาน)",
+      "cat": "Adventuring Gear",
+      "price": 0.1,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nการใช้งาน: เมื่อจุดไฟ แท่งกำยานจะเผาไหม้ได้นาน 8 ชั่วโมง\n\nผลของไอเทม: ช่วยขับไล่แมลงขนาดปกติใน รัศมี 20 ฟุต โดยมีจุดศูนย์กลางอยู่ที่แท่งกำยาน\n\nข้อจำกัด: ไม่สามารถป้องกันแมลงขนาดยักษ์ (Giant Insects) หรือฝูงแมลงอันตราย (Swarms of Insects) ได้"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 21:05:22"
+  "lastUpdated": "28/7/2569 21:06:45"
 }
