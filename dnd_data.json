@@ -307,10 +307,16 @@
       "cat": "Adventuring Gear",
       "price": 10,
       "desc": "น้ำหนัก: 2 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nตะเกียงนี้ใช้น้ำมัน (Oil) เป็นเชื้อเพลิง\n\nส่องแสงสว่างจ้า (Bright Light) เป็นแนวกรวย (Cone) ขนาด 60 ฟุต\n\nและส่องแสงมัว (Dim Light) ต่อเนื่องออกไปอีก 60 ฟุต"
+    },
+    {
+      "name": "Burglar's Pack (กระเป๋าอุปกรณ์โจร)",
+      "cat": "Adventuring Gear",
+      "price": 16,
+      "desc": "น้ำหนัก: 47.5 ปอนด์ (47½ lb.)\n\nรายการไอเทมภายในเซ็ต:\n\nBackpack (กระเป๋าสะพายหลัง) 1 ใบ\n\nBall Bearings (ถุงลูกปืนเหล็ก) 1 ถุง\n\nBell (กระดิ่ง) 1 อัน\n\nCandles (เทียน) 10 เล่ม\n\nCrowbar (ชะแลง) 1 อัน\n\nHooded Lantern (ตะเกียงแบบมีฝาครอบ) 1 อัน\n\nOil (ขวดน้ำมัน) 7 ขวด\n\nRations (เสบียงอาหาร) 5 วัน\n\nRope (เชือก) 1 เส้น\n\nTinderbox (กล่องจุดไฟ) 1 ชุด\n\nWaterskin (ถุงน้ำหนัง) 1 ใบ"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 19:23:58"
+  "lastUpdated": "28/7/2569 19:25:19"
 }
