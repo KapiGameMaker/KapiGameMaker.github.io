@@ -582,10 +582,16 @@
       "cat": "Adventuring Gear",
       "price": 100,
       "desc": "รายละเอียดคุณสมบัติ:\n\nการประเมินและตรวจสอบ: ได้รับ Advantage ในการทอย Ability Check ใดๆ ที่ใช้ในการประเมินราคาหรือตรวจส่องวัตถุที่มีรายละเอียดซับซ้อน/ขนาดเล็ก\n\nการจุดไฟ: สามารถใช้จุดไฟได้ โดยต้องการ:\n\nแสงสว่างที่แรงเท่าแสงอาทิตย์เพื่อรวมแสง\n\nเชื้อไฟ (Tinder) สำหรับจุด\n\nใช้เวลาประมาณ 5 นาที ในการจุดไฟให้ติด"
+    },
+    {
+      "name": "Manacles (กุญแจมือ)",
+      "cat": "Adventuring Gear",
+      "price": 2,
+      "desc": "น้ำหนัก: 6 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nการใช้งานใส่กุญแจมือ (Utilize Action): คุณสามารถใช้แอ็กชัน Utilize เพื่อพันธนาการสิ่งมีชีวิตขนาด Small หรือ Medium ในระยะ 5 ฟุตที่ไม่ยินยอม และกำลังติดสถานะ Grappled, Incapacitated, หรือ Restrained อยู่ได้ โดยต้องทอย DC 13 Dexterity (Sleight of Hand) check ผ่าน\n\nผลลัพธ์ขณะถูกพันธนาการ:\n\nสิ่งมีชีวิตที่ถูกใส่กุญแจมือจะติด Disadvantage ในการทอยโจมตี (Attack rolls)\n\nหากกุญแจมือถูกยึดติดไว้กับโซ่หรือตะขอที่ติดอยู่กับที่ สิ่งมีชีวิตนั้นจะติดสถานะ Restrained\n\nการหลุดออกจากกุญแจมือ:\n\nการถอดหลุด (Action): ต้องใช้แอ็กชันทอย DC 20 Dexterity (Sleight of Hand) check ให้ผ่าน\n\nการทำลาย/พังออก (Action): ต้องใช้แอ็กชันทอย DC 25 Strength (Athletics) check ให้ผ่าน\n\nกุญแจและการสะเดาะกุญแจ: กุญแจมือแต่ละชุดมาพร้อมกับลูกกุญแจ หากไม่มีลูกกุญแจ สามารถใช้ Thieves' Tools สะเดาะกุญแจได้โดยต้องทอย DC 15 Dexterity (Sleight of Hand) check ผ่าน"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 21:34:00"
+  "lastUpdated": "28/7/2569 21:34:52"
 }
