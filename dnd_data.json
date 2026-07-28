@@ -247,10 +247,16 @@
       "cat": "Adventuring Gear",
       "price": 1,
       "desc": "น้ำหนัก: 7 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nถุงนอนสำหรับนอนพักผ่อน 1 คน (ขนาด Small หรือ Medium)\n\nในขณะที่นอนอยู่ในถุงนอน คุณจะ ผ่านการทอย Saving throw ต่อสู้กับสภาพอากาศหนาวจัด (Extreme cold) โดยอัตโนมัติ"
+    },
+    {
+      "name": "Bell (กระดิ่ง)",
+      "cat": "Adventuring Gear",
+      "price": 1,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nเมื่อสั่นกระดิ่งโดยใช้การกระทำ Utilize\n\nจะส่งเสียงดังกังวานที่สามารถได้ยินได้ไกลถึง 60 ฟุต"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 19:09:35"
+  "lastUpdated": "28/7/2569 19:10:45"
 }
