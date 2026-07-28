@@ -201,11 +201,6 @@
   },
   "masterCatalog": [
     {
-      "name": "ชุดปฐมพยาบาล (Healer's Kit)",
-      "cat": "อุปกรณ์",
-      "price": 5
-    },
-    {
       "name": "ไลเซเบอร์",
       "cat": "อาวุธ",
       "price": 99999,
@@ -215,5 +210,5 @@
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 18:44:20"
+  "lastUpdated": "28/7/2569 18:44:24"
 }
