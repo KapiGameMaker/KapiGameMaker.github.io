@@ -588,10 +588,16 @@
       "cat": "Adventuring Gear",
       "price": 2,
       "desc": "น้ำหนัก: 6 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nการใช้งานใส่กุญแจมือ (Utilize Action): คุณสามารถใช้แอ็กชัน Utilize เพื่อพันธนาการสิ่งมีชีวิตขนาด Small หรือ Medium ในระยะ 5 ฟุตที่ไม่ยินยอม และกำลังติดสถานะ Grappled, Incapacitated, หรือ Restrained อยู่ได้ โดยต้องทอย DC 13 Dexterity (Sleight of Hand) check ผ่าน\n\nผลลัพธ์ขณะถูกพันธนาการ:\n\nสิ่งมีชีวิตที่ถูกใส่กุญแจมือจะติด Disadvantage ในการทอยโจมตี (Attack rolls)\n\nหากกุญแจมือถูกยึดติดไว้กับโซ่หรือตะขอที่ติดอยู่กับที่ สิ่งมีชีวิตนั้นจะติดสถานะ Restrained\n\nการหลุดออกจากกุญแจมือ:\n\nการถอดหลุด (Action): ต้องใช้แอ็กชันทอย DC 20 Dexterity (Sleight of Hand) check ให้ผ่าน\n\nการทำลาย/พังออก (Action): ต้องใช้แอ็กชันทอย DC 25 Strength (Athletics) check ให้ผ่าน\n\nกุญแจและการสะเดาะกุญแจ: กุญแจมือแต่ละชุดมาพร้อมกับลูกกุญแจ หากไม่มีลูกกุญแจ สามารถใช้ Thieves' Tools สะเดาะกุญแจได้โดยต้องทอย DC 15 Dexterity (Sleight of Hand) check ผ่าน"
+    },
+    {
+      "name": "Map (แผนที่)",
+      "cat": "Adventuring Gear",
+      "price": 1,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nผลของไอเทม: หากคุณเปิดอ่านและอ้างอิงจากแผนที่ที่มีความแม่นยำ คุณจะได้รับ โบนัส +5 ในการทอย Wisdom (Survival) check เพื่อค้นหาเส้นทางในพื้นที่ที่แสดงอยู่บนแผนที่นั้น"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 21:34:52"
+  "lastUpdated": "28/7/2569 21:35:48"
 }
