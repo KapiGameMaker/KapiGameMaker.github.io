@@ -21,20 +21,18 @@
       "dmId": "dm_1785191399831"
     },
     {
-      "id": "pl_1785191499974",
-      "username": "หลิน",
-      "password": "หลิน",
-      "role": "player",
-      "partyId": "party_1785191465656",
-      "dmId": "dm_1785191399831"
-    },
-    {
       "id": "pl_1785196492097",
       "username": "หมิง",
       "password": "หมิง",
       "role": "player",
       "partyId": "party_1785191465656",
       "dmId": "dm_1785191399831"
+    },
+    {
+      "id": "dm_1785197390692",
+      "username": "lin",
+      "password": "lin",
+      "role": "dm"
     }
   ],
   "parties": [
@@ -76,17 +74,14 @@
         {
           "name": "ดาบสั้น (Shortsword)",
           "cat": "อาวุธ",
-          "price": 10
+          "price": 10,
+          "info": ""
         },
         {
-          "name": "ดาบยาว (Longsword)",
+          "name": "ไลเซเบอร์",
           "cat": "อาวุธ",
-          "price": 15
-        },
-        {
-          "name": "ดาบสั้นนนนนน",
-          "cat": "อาวุธ",
-          "price": 999
+          "price": 99999,
+          "info": "เจ้าควรจะต่อต้านไม่ใช่เข้าร่วมมมม"
         }
       ],
       "dmId": "dm_1785191399831"
@@ -96,10 +91,194 @@
       "name": "ไม่มีร้านค้า",
       "items": [],
       "dmId": "dm_1785191399831"
+    },
+    "shop_1785197415038": {
+      "id": "shop_1785197415038",
+      "name": "แมว",
+      "items": [
+        {
+          "name": "ดาบสั้น (Shortsword)",
+          "cat": "อาวุธ",
+          "price": 10
+        }
+      ],
+      "dmId": "dm_1785197390692"
+    },
+    "shop_1785199542339": {
+      "id": "shop_1785199542339",
+      "name": "555",
+      "items": [
+        {
+          "name": "ดาบสั้น (Shortsword)",
+          "cat": "อาวุธ",
+          "price": 10
+        },
+        {
+          "name": "ดาบยาว (Longsword)",
+          "cat": "อาวุธ",
+          "price": 15
+        },
+        {
+          "name": "ธนูยาว (Longbow)",
+          "cat": "อาวุธ",
+          "price": 50
+        },
+        {
+          "name": "ลูกธนู x20 (Arrows)",
+          "cat": "อาวุธ",
+          "price": 1
+        },
+        {
+          "name": "เกราะหนัง (Leather Armor)",
+          "cat": "เกราะ",
+          "price": 10
+        },
+        {
+          "name": "เกราะโซ่ (Chain Mail)",
+          "cat": "เกราะ",
+          "price": 75
+        },
+        {
+          "name": "โล่ (Shield)",
+          "cat": "เกราะ",
+          "price": 10
+        },
+        {
+          "name": "ยาโพชั่นฟื้นพลัง (Potion of Healing)",
+          "cat": "เวทมนตร์",
+          "price": 50
+        },
+        {
+          "name": "คบเพลิง x5 (Torches)",
+          "cat": "อุปกรณ์",
+          "price": 0.5
+        },
+        {
+          "name": "เชือกไหมยาว 50ฟุต (Silk Rope)",
+          "cat": "อุปกรณ์",
+          "price": 10
+        },
+        {
+          "name": "ชุดปีนเขา (Climber's Kit)",
+          "cat": "อุปกรณ์",
+          "price": 25
+        },
+        {
+          "name": "เป้สัมภาระ (Backpack)",
+          "cat": "อุปกรณ์",
+          "price": 2
+        },
+        {
+          "name": "อาหารเดินทาง 1วัน (Rations)",
+          "cat": "อุปกรณ์",
+          "price": 0.5
+        },
+        {
+          "name": "ชุดปฐมพยาบาล (Healer's Kit)",
+          "cat": "อุปกรณ์",
+          "price": 5
+        }
+      ],
+      "dmId": "dm_1785191399831"
+    },
+    "shop_1785199690839": {
+      "id": "shop_1785199690839",
+      "name": "666",
+      "items": [
+        {
+          "name": "ดาบสั้น (Shortsword)",
+          "cat": "อาวุธ",
+          "price": 10
+        },
+        {
+          "name": "ธนูยาว (Longbow)",
+          "cat": "อาวุธ",
+          "price": 50
+        }
+      ],
+      "dmId": "dm_1785191399831"
     }
   },
+  "masterCatalog": [
+    {
+      "name": "ดาบสั้น (Shortsword)",
+      "cat": "อาวุธ",
+      "price": 10
+    },
+    {
+      "name": "ดาบยาว (Longsword)",
+      "cat": "อาวุธ",
+      "price": 15
+    },
+    {
+      "name": "ธนูยาว (Longbow)",
+      "cat": "อาวุธ",
+      "price": 50
+    },
+    {
+      "name": "ลูกธนู x20 (Arrows)",
+      "cat": "อาวุธ",
+      "price": 1
+    },
+    {
+      "name": "เกราะหนัง (Leather Armor)",
+      "cat": "เกราะ",
+      "price": 10
+    },
+    {
+      "name": "เกราะโซ่ (Chain Mail)",
+      "cat": "เกราะ",
+      "price": 75
+    },
+    {
+      "name": "โล่ (Shield)",
+      "cat": "เกราะ",
+      "price": 10
+    },
+    {
+      "name": "ยาโพชั่นฟื้นพลัง (Potion of Healing)",
+      "cat": "เวทมนตร์",
+      "price": 50
+    },
+    {
+      "name": "คบเพลิง x5 (Torches)",
+      "cat": "อุปกรณ์",
+      "price": 0.5
+    },
+    {
+      "name": "เชือกไหมยาว 50ฟุต (Silk Rope)",
+      "cat": "อุปกรณ์",
+      "price": 10
+    },
+    {
+      "name": "ชุดปีนเขา (Climber's Kit)",
+      "cat": "อุปกรณ์",
+      "price": 25
+    },
+    {
+      "name": "เป้สัมภาระ (Backpack)",
+      "cat": "อุปกรณ์",
+      "price": 2
+    },
+    {
+      "name": "อาหารเดินทาง 1วัน (Rations)",
+      "cat": "อุปกรณ์",
+      "price": 0.5
+    },
+    {
+      "name": "ชุดปฐมพยาบาล (Healer's Kit)",
+      "cat": "อุปกรณ์",
+      "price": 5
+    },
+    {
+      "name": "ไลเซเบอร์",
+      "cat": "อาวุธ",
+      "price": 99999,
+      "desc": "เจ้าควรจะต่อต้านไม่ใช่เข้าร่วมมมม"
+    }
+  ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "2026-07-27T23:55:07.965Z"
+  "lastUpdated": "28/7/2569 18:34:12"
 }
