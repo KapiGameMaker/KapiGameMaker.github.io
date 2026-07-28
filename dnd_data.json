@@ -433,10 +433,16 @@
       "cat": "Adventuring Gear",
       "price": 50,
       "desc": "น้ำหนัก: 6 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nเสื้อคลุมนี้ถูกออกแบบมาเพื่อดึงดูดใจเหล่า Elementals ที่มีความเชื่อมโยงกับมิติธาตุเฉพาะแห่ง (Elemental Plane: ลม, ดิน, ไฟ หรือ น้ำ)\n\nในขณะที่สวมใส่ Genie Robe คุณจะได้รับ Advantage ในการทอย Ability Check เพื่อส่งผลกระทบหรือชักจูง (Influence) เหล่า Elementals ที่เกี่ยวข้องกับมิติธาตุนั้นๆ"
+    },
+    {
+      "name": "Glass Bottle (ขวดแก้ว)",
+      "cat": "Adventuring Gear",
+      "price": 2,
+      "desc": "น้ำหนัก: 2 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nขวดแก้วนี้สามารถบรรจุของเหลวได้สูงสุด 1½ พินท์ (1.5 pints / ประมาณ 710 มิลลิลิตร)"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 20:48:34"
+  "lastUpdated": "28/7/2569 20:50:16"
 }
