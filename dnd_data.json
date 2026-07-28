@@ -738,10 +738,16 @@
       "cat": "Adventuring Gear",
       "price": 50,
       "desc": "รายละเอียดคุณสมบัติ:\n\nผลของการบริโภค: สิ่งมีชีวิตใดก็ตามที่กิน Ryath Root เข้าไป จะได้รับพลังชีวิตชั่วคราว (Temporary Hit Points) จำนวน 2d4\n\nข้อควรระวัง / ผลข้างเคียง: สิ่งมีชีวิตที่กิน Ryath Root มากกว่า 1 ชิ้นภายในระยะเวลา 24 ชั่วโมง จะต้องทำการทอย DC 13 Constitution saving throw หากล้มเหลวจะติดสถานะ Poisoned (ติดพิษ) เป็นเวลา 1 ชั่วโมง"
+    },
+    {
+      "name": "Sack (กระสอบใส่ของ)",
+      "cat": "Adventuring Gear",
+      "price": 0.01,
+      "desc": "น้ำหนัก: ½ ปอนด์ (0.5 lb)\n\nรายละเอียดคุณสมบัติ:\n\nความจุ: กระสอบ 1 ใบ สามารถรับน้ำหนักสิ่งของได้สูงสุด 30 ปอนด์ ภายในปริมาตร 1 ลูกบาศก์ฟุต (1 cubic foot)"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 22:16:15"
+  "lastUpdated": "28/7/2569 22:17:13"
 }
