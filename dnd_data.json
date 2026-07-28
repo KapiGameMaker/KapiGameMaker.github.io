@@ -271,10 +271,16 @@
       "cat": "Adventuring Gear",
       "price": 200,
       "desc": "รายละเอียดคุณสมบัติ:\n\nของเหลวรสขมสีเขียวอมเหลืองนี้กลั่นมาจากเชื้อราท้องถิ่นในดินแดนร้าง Blightshore เหล้าสีเขียวซีดนี้มีฤทธิ์หลอนประสาทที่รุนแรงมาก\n\nผลกับสิ่งมีชีวิตทั่วไป (ที่ไม่ใช่ Construct หรือ Undead):\n\nเมื่อได้รับ 1 โดส จะได้รับสถานะ Advantage ในการเช็ค Intelligence และ Wisdom\n\nแต่จะติดสถานะแพ้ทางความเสียหายทางจิต (Vulnerability to Psychic damage) เป็นเวลา 1 ชั่วโมง\n\nทุกๆ โดสที่เสพ ต้องทำการทอย Constitution saving throw (DC 15) ให้ผ่าน หากไม่ผ่านจะติดสถานะพิษ (Poisoned) เป็นเวลา 1d6 ชั่วโมง และได้รับผลของคาถา Confusion เป็นเวลา 1 นาที\n\nผลกับ Undead:\n\nหากสิ่งมีชีวิตประเภท Undead ได้รับสารนี้ จะได้รับสถานะ Advantage ในการเช็ค Dexterity ทั้งหมด และภูมิคุ้มกันต่อสถานะกลัว (Immune to Frightened) เป็นเวลา 1 ชั่วโมง"
+    },
+    {
+      "name": "Block and Tackle (รอกและเชือกผ่อนแรง)",
+      "cat": "Adventuring Gear",
+      "price": 1,
+      "desc": "น้ำหนัก: 5 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nชุดรอกและเชือกผ่อนแรงช่วยให้คุณสามารถยกหรือดึงน้ำหนักได้มากถึง 4 เท่า ของน้ำหนักที่คุณสามารถยกได้ตามปกติ"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 19:15:58"
+  "lastUpdated": "28/7/2569 19:17:08"
 }
