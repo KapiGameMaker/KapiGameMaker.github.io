@@ -696,10 +696,16 @@
       "cat": "Adventuring Gear",
       "price": 500,
       "desc": "น้ำหนัก: 4 ปอนด์รายละเอียดคุณสมบัติ:ลักษณะ: เครื่องแต่งกายที่ตัดเย็บจากผ้าไหมไพรด์ มีความประณีต หรูหรา และเนื้อผ้ามีความทนทานสูงผลของการสวมใส่:ขณะที่คุณสวมใส่ชุดนี้ และไม่ได้สวมเกราะอื่นอยู่ ค่าเกราะพื้นฐาน (Base Armor Class) ของคุณจะเป็น 11 + Dexterity modifier"
+    },
+    {
+      "name": "Priest's Pack (ชุดอุปกรณ์นักบวช)",
+      "cat": "Adventuring Gear",
+      "price": 33,
+      "desc": "น้ำหนัก: 29 ปอนด์\n\nรายการอุปกรณ์ภายในชุด (Includes):\n\nBackpack (กระเป๋าเป้สะพายหลัง): 1 ใบ\n\nBlanket (ผ้าห่ม): 1 ผืน\n\nHoly Water (น้ำมนต์): 1 ขวด\n\nLamp (ตะเกียง): 1 ดวง\n\nRations (เสบียงอาหาร): 7 วัน\n\nRobe (ชุดคลุมนักบวช): 1 ชุด\n\nTinderbox (กล่องจุดไฟ): 1 ชุด"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 22:09:49"
+  "lastUpdated": "28/7/2569 22:10:48"
 }
