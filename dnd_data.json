@@ -552,10 +552,16 @@
       "cat": "Adventuring Gear",
       "price": 0.02,
       "desc": "น้ำหนัก: 4 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nเหยือกนี้สามารถบรรจุของเหลวได้สูงสุด 1 แกลลอน (ประมาณ 3.8 ลิตร)"
+    },
+    {
+      "name": "Ladder (บันได)",
+      "cat": "Adventuring Gear",
+      "price": 0.1,
+      "desc": "น้ำหนัก: 25 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nบันไดมีความสูง 10 ฟุต\n\nการเคลื่อนที่ขึ้นหรือลงบันไดนี้ ต้องใช้รูปแบบการปีน (Climb)"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 21:28:49"
+  "lastUpdated": "28/7/2569 21:29:47"
 }
