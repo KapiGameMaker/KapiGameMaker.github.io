@@ -427,10 +427,16 @@
       "cat": "Adventuring Gear",
       "price": 50,
       "desc": "น้ำหนัก: 6 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nเครื่องแต่งกายนี้ถูกออกแบบมาเพื่อดึงดูดใจเหล่า Fey จากอาณาจักรแห่งความเพลิดเพลินเฉพาะแห่ง (Domain of Delight) เช่น Gloaming Court หรือ Summer Court\n\nในขณะที่สวมใส่อาภรณ์นี้ คุณจะได้รับ Advantage ในการทอย Ability Check เพื่อส่งผลกระทบหรือชักจูง (Influence) เหล่า Fey ที่มีความเกี่ยวข้องกับ Domain of Delight แห่งนั้นๆ"
+    },
+    {
+      "name": "Genie Robe (ชุดคลุมจินนี่)",
+      "cat": "Adventuring Gear",
+      "price": 50,
+      "desc": "น้ำหนัก: 6 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nเสื้อคลุมนี้ถูกออกแบบมาเพื่อดึงดูดใจเหล่า Elementals ที่มีความเชื่อมโยงกับมิติธาตุเฉพาะแห่ง (Elemental Plane: ลม, ดิน, ไฟ หรือ น้ำ)\n\nในขณะที่สวมใส่ Genie Robe คุณจะได้รับ Advantage ในการทอย Ability Check เพื่อส่งผลกระทบหรือชักจูง (Influence) เหล่า Elementals ที่เกี่ยวข้องกับมิติธาตุนั้นๆ"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 20:46:54"
+  "lastUpdated": "28/7/2569 20:48:34"
 }
