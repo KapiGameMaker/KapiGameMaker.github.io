@@ -822,10 +822,16 @@
       "cat": "Adventuring Gear",
       "price": 2,
       "desc": "น้ำหนัก: 4 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nลักษณะ: เสื้อผ้าที่ออกแบบมาให้ทนทานเป็นพิเศษ เหมาะสำหรับการเดินทางและการเผชิญกับสภาพแวดล้อมที่หลากหลาย"
+    },
+    {
+      "name": "Vial (ขวดแก้วเล็ก / หลอดแก้ว)",
+      "cat": "Adventuring Gear",
+      "price": 1,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nความจุ: ขวดแก้วขนาดเล็ก 1 ใบ สามารถบรรจุของเหลวได้สูงสุด 4 ออนซ์ (4 ounces)"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 22:47:34"
+  "lastUpdated": "28/7/2569 22:48:39"
 }
