@@ -564,10 +564,16 @@
       "cat": "Adventuring Gear",
       "price": 0.5,
       "desc": "น้ำหนัก: 1 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nเชื้อเพลิงและการส่องสว่าง: ใช้น้ำมัน (Oil) เป็นเชื้อเพลิง ให้แสงสว่างสว่างสลัว/สว่างจ้าดังนี้:\n\nBright Light (แสงสว่างจ้า): รัศมี 15 ฟุต\n\nDim Light (แสงสลัว): ต่อเนื่องเพิ่มอีก 30 ฟุต"
+    },
+    {
+      "name": "Lock (แม่กุญแจ)",
+      "cat": "Adventuring Gear",
+      "price": 10,
+      "desc": "น้ำหนัก: 1 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nอุปกรณ์ในชุด: แม่กุญแจมาพร้อมกับลูกกุญแจสำหรับไข\n\nการสะเดาะกุญแจ: หากไม่มีลูกกุญแจ สิ่งมีชีวิตสามารถใช้ Thieves' Tools เพื่อสะเดาะกุญแจนี้ได้ โดยต้องทอย Dexterity (Sleight of Hand) check ผ่าน DC 15"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 21:30:44"
+  "lastUpdated": "28/7/2569 21:31:30"
 }
