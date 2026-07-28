@@ -207,7 +207,14 @@
     "shop_1785247815570": {
       "id": "shop_1785247815570",
       "name": "josep",
-      "items": [],
+      "items": [
+        {
+          "name": "Healer's Kit (ชุดอุปกรณ์ปฐมพยาบาล)",
+          "cat": "Adventuring Gear",
+          "price": 5,
+          "info": "น้ำหนัก: 3 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nจำนวนการใช้งาน: สามารถใช้งานได้ทั้งหมด 10 ครั้ง\n\nการใช้งาน (Utilize Action): คุณสามารถใช้แอ็กชัน Utilize และจ่ายจำนวนการใช้งาน 1 ครั้ง เพื่อทำให้สิ่งมีชีวิตที่หมดสติ (Unconscious) และมี 0 Hit Points เข้าสู่สถานะคงที่ (Stabilize) ได้ทันที โดย ไม่ต้องทอย Wisdom (Medicine) check"
+        }
+      ],
       "dmId": "dm_1785191399831"
     }
   },
@@ -504,5 +511,5 @@
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 21:10:17"
+  "lastUpdated": "28/7/2569 21:10:37"
 }
