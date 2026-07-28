@@ -409,10 +409,16 @@
       "cat": "Adventuring Gear",
       "price": 10,
       "desc": "น้ำหนัก: 55 ปอนด์\n\nรายการไอเทมภายในชุด:\n\nBackpack (กระเป๋าเป้): 1 ใบ\n\nBedroll (ถุงนอน): 1 ผืน\n\nFlasks of Oil (ขวดน้ำมัน): 2 ขวด\n\nRations (เสบียงอาหาร): สำหรับ 10 วัน\n\nRope (เชือก): 1 เส้น\n\nTinderbox (กล่องจุดไฟ): 1 ชุด\n\nTorches (คบเพลิง): 10 อัน\n\nWaterskin (ถุงน้ำ): 1 ใบ"
+    },
+    {
+      "name": "Fine Clothes (ชุดเสื้อผ้าเนื้อดี)",
+      "cat": "Adventuring Gear",
+      "price": 15,
+      "desc": "น้ำหนัก: 6 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nตัดเย็บด้วยผ้าเนื้อดีราคาแพง ตกแต่งด้วยความประณีตพิถีพิถันจากช่างฝีมือ\n\nสถานที่สำคัญหรือ งานเลี้ยง/กิจกรรม บางประเภท จะอนุญาตให้เฉพาะผู้ที่สวมใส่เสื้อผ้าหรูหราระดับนี้เข้าร่วมเท่านั้น"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 20:42:22"
+  "lastUpdated": "28/7/2569 20:43:22"
 }
