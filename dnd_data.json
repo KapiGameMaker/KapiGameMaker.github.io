@@ -27,12 +27,6 @@
       "role": "player",
       "partyId": "party_1785191465656",
       "dmId": "dm_1785191399831"
-    },
-    {
-      "id": "dm_1785197337048",
-      "username": "Lin",
-      "password": "Lin",
-      "role": "dm"
     }
   ],
   "parties": [
@@ -109,5 +103,5 @@
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "2026-07-28T00:08:59.055Z"
+  "lastUpdated": "2026-07-28T00:09:02.312Z"
 }
