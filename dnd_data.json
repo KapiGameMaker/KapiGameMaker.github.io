@@ -385,10 +385,16 @@
       "cat": "Adventuring Gear",
       "price": 25,
       "desc": "รายละเอียดคุณสมบัติ:\n\nในขณะที่คุณสวมใส่ Devil Mask สิ่งมีชีวิตอื่นจะติด Disadvantage ในการทอยเช็ค:\n\nIntelligence (Investigation) เพื่อสืบหาหรือระบุตัวตนที่แท้จริงของคุณ\n\nWisdom (Insight) เพื่ออ่านเจตนาหรือความตั้งใจที่แท้จริงของคุณ"
+    },
+    {
+      "name": "Diplomat's Pack (ชุดอุปกรณ์นักการทูต)",
+      "cat": "Adventuring Gear",
+      "price": 39,
+      "desc": "น้ำหนัก: 39 ปอนด์\n\nรายการไอเทมภายในชุด:\n\nChest (หีบไม้): 1 ใบ\n\nFine Clothes (ชุดเสื้อผ้าเนื้อดี): 1 ชุด\n\nInk (หมึก): 1 ขวด\n\nInk Pens (ปากกาขนนก/ปากกาหมึกซึม): 5 ด้าม\n\nLamp (ตะเกียง): 1 ดวง\n\nMap or Scroll Cases (กระบอกใส่แผนที่หรือคัมภีร์): 2 กระบอก\n\nFlasks of Oil (ขวดน้ำมัน): 4 ขวด\n\nPaper (กระดาษ): 5 แผ่น\n\nParchment (กระดาษหนัง): 5 แผ่น\n\nPerfume (น้ำหอม): 1 ขวด\n\nTinderbox (กล่องจุดไฟ): 1 ชุด"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 19:46:56"
+  "lastUpdated": "28/7/2569 20:38:00"
 }
