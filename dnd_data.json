@@ -397,10 +397,16 @@
       "cat": "Adventuring Gear",
       "price": 12,
       "desc": "น้ำหนัก: 55 ปอนด์\n\nรายการไอเทมภายในชุด:\n\nBackpack (กระเป๋าเป้): 1 ใบ\n\nCaltrops (กับดักหนามเรือกบัด): 1 ชุด\n\nCrowbar (ชะแลง): 1 อัน\n\nFlasks of Oil (ขวดน้ำมัน): 2 ขวด\n\nRations (เสบียงอาหาร): สำหรับ 10 วัน\n\nRope (เชือก): 1 เส้น\n\nTinderbox (กล่องจุดไฟ): 1 ชุด\n\nTorches (คบเพลิง): 10 อัน\n\nWaterskin (ถุงน้ำ): 1 ใบ"
+    },
+    {
+      "name": "Entertainer's Pack (ชุดอุปกรณ์นักแสดง)",
+      "cat": "Adventuring Gear",
+      "price": 40,
+      "desc": "น้ำหนัก: 58½ ปอนด์ (58.5 lbs)\n\nรายการไอเทมภายในชุด:\n\nBackpack (กระเป๋าเป้): 1 ใบ\n\nBedroll (ถุงนอน): 1 ผืน\n\nBell (กระดิ่ง): 1 อัน\n\nBullseye Lantern (ตะเกียงจุดโฟกัสแสง): 1 ดวง\n\nCostumes (ชุดคอสตูม): 3 ชุด\n\nMirror (กระจกเงา): 1 บาน\n\nFlasks of Oil (ขวดน้ำมัน): 8 ขวด\n\nRations (เสบียงอาหาร): สำหรับ 9 วัน\n\nTinderbox (กล่องจุดไฟ): 1 ชุด\n\nWaterskin (ถุงน้ำ): 1 ใบ"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 20:38:56"
+  "lastUpdated": "28/7/2569 20:41:14"
 }
