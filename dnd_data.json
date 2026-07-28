@@ -451,10 +451,16 @@
       "cat": "Adventuring Gear",
       "price": 5,
       "desc": "น้ำหนัก: 3 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nจำนวนการใช้งาน: สามารถใช้งานได้ทั้งหมด 10 ครั้ง\n\nการใช้งาน (Utilize Action): คุณสามารถใช้แอ็กชัน Utilize และจ่ายจำนวนการใช้งาน 1 ครั้ง เพื่อทำให้สิ่งมีชีวิตที่หมดสติ (Unconscious) และมี 0 Hit Points เข้าสู่สถานะคงที่ (Stabilize) ได้ทันที โดย ไม่ต้องทอย Wisdom (Medicine) check"
+    },
+    {
+      "name": "Holy Water (น้ำมนต์)",
+      "cat": "Adventuring Gear",
+      "price": 25,
+      "desc": "น้ำหนัก: 1 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nการใช้งาน: เมื่อคุณใช้แอ็กชันโจมตี (Attack action) คุณสามารถแทนที่การโจมตีครั้งหนึ่งของคุณด้วยการขว้างขวดน้ำมนต์นี้\n\nระยะเป้าหมาย: เลือกเป้าหมายสิ่งมีชีวิต 1 ตัวที่คุณมองเห็นในระยะ 20 ฟุต\n\nผลของไอเทม: เป้าหมายต้องทำการทอย Dexterity saving throw\n\nSave DC: 8 + ค่าปรับ Dexterity ของคุณ + Proficiency Bonus ของคุณ\n\nผลลัพธ์: หากเป้าหมายทอยไม่ผ่าน และเป็นประเภท Fiend (ปีศาจ) หรือ Undead (ผีดิบ) จะได้รับความเสียหาย 2d8 Radiant damage"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 20:57:35"
+  "lastUpdated": "28/7/2569 20:59:17"
 }
