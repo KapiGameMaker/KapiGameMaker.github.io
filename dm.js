@@ -1,5 +1,9 @@
 // DM-specific functions
 let currentDMTab = 'manage';
+let openShops = new Set();
+let openParties = new Set();
+let openArsenals = new Set();
+let arsenalSearchTerm = '';
 
 function renderDMDashboard(){
   const shops = getMyShops();
@@ -27,20 +31,34 @@ function renderDMDashboard(){
     
     card.innerHTML = `
       <div class="shop-card-header">
-        <button class="shop-name-btn" onclick="toggleShopDetails('${shop.id}')">
+        <button class="shop-name-btn ${openShops.has(shop.id) ? '' : 'collapsed'}" onclick="toggleShopDetails('${shop.id}')">
           ${shop.name}
         </button>
         <div class="shop-actions">
           <button class="small-btn danger" onclick="deleteShop('${shop.id}')">ลบร้าน</button>
         </div>
       </div>
-      <div id="details_${shop.id}" class="hidden">
+      <div id="details_${shop.id}" class="${openShops.has(shop.id) ? '' : 'hidden'}">
         <div class="item-list-dm">${itemsHtml}</div>
         <div class="add-item-dm">
-          <input type="text" placeholder="ชื่อไอเทม" class="item-name-input" id="iname_${shop.id}">
-          <input type="number" placeholder="ราคา" step="0.1" class="item-price-input" id="iprice_${shop.id}">
-          <input type="text" placeholder="หมวดหมู่" class="item-cat-input" id="icat_${shop.id}">
-          <button class="small-btn primary" onclick="addItemDM('${shop.id}')">เพิ่ม</button>
+          <div class="add-item-row">
+            <input type="text" placeholder="ชื่อไอเทม" name="iname" class="item-name-input" id="iname_${shop.id}">
+            <input type="number" placeholder="ราคา" name="iprice" step="0.1" class="item-price-input" id="iprice_${shop.id}">
+            <input type="text" placeholder="หมวดหมู่" name="icat" class="item-cat-input" id="icat_${shop.id}">
+            <div class="add-item-btns">
+              <button class="small-btn primary" onclick="addItemDM('${shop.id}')">เพิ่มไอเทมใหม่</button>
+              <button class="small-btn ${openArsenals.has(shop.id) ? 'arsenal-btn-red' : 'arsenal-btn-yellow'}" onclick="toggleArsenal('${shop.id}')">⚔️ คลังแสง</button>
+            </div>
+          </div>
+          <div id="arsenal_dropdown_${shop.id}" class="arsenal-dropdown ${openArsenals.has(shop.id) ? '' : 'hidden'}">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <h4 style="margin:0; font-size:14px;">⚔️ ไอเทมจากคลังแสง</h4>
+            </div>
+            <input type="text" placeholder="ค้นหาในคลังแสง..." value="${arsenalSearchTerm}" oninput="searchArsenal('${shop.id}', this.value)" style="width:100%; padding:6px 10px; border:1px solid var(--line); border-radius:4px; margin-bottom:10px; font-size:14px;">
+            <div class="arsenal-list" id="arsenal_list_${shop.id}">
+              ${generateArsenalHtml(shop.id)}
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -58,7 +76,7 @@ function createNewShop(){
   shops[newId] = {
     id: newId,
     name: name,
-    items: [...DEFAULT_CATALOG],
+    items: [],
     dmId: user.id
   };
   saveShops(shops);
@@ -108,15 +126,84 @@ function editItemInfo(shopId, idx, value){
   }
 }
 
+// Arsenal System for DM (Dropdown Version)
+function toggleArsenal(shopId){
+  if(openArsenals.has(shopId)){
+    openArsenals.delete(shopId);
+  } else {
+    openArsenals.add(shopId);
+  }
+  renderDMDashboard();
+}
+
+function searchArsenal(shopId, term){
+  arsenalSearchTerm = term;
+  const list = document.getElementById('arsenal_list_' + shopId);
+  if(list) list.innerHTML = generateArsenalHtml(shopId);
+}
+
+function generateArsenalHtml(shopId){
+  const catalog = getMasterCatalog();
+  const filtered = catalog.filter(item => 
+    item.name.toLowerCase().includes(arsenalSearchTerm.toLowerCase()) || 
+    item.cat.toLowerCase().includes(arsenalSearchTerm.toLowerCase())
+  );
+
+  if(filtered.length === 0){
+    return '<p style="text-align:center; color:var(--ink-soft); font-size:14px;">ไม่พบไอเทม</p>';
+  }
+
+  return filtered.map(item => `
+    <div class="arsenal-item">
+      <div style="flex:1;">
+        <div style="font-weight:bold; font-size:14px;">${item.name}</div>
+        <div style="font-size:11px; color:var(--ink-soft);">${item.cat}</div>
+      </div>
+      <div style="font-family:var(--mono); margin: 0 10px; font-size:13px;">${item.price} G</div>
+      <button class="small-btn primary" onclick="addItemFromArsenal('${shopId}', '${item.name.replace(/'/g, "\\'")}', '${item.cat.replace(/'/g, "\\'")}', ${item.price}, '${(item.desc || '').replace(/'/g, "\\'").replace(/\n/g, "\\n")}')">เลือก</button>
+    </div>
+  `).join('');
+}
+
+function addItemFromArsenal(shopId, name, cat, price, desc){
+  const shops = getShops();
+  if(!shops[shopId]) return;
+
+  shops[shopId].items.push({ name, cat, price, info: desc || '' });
+  saveShops(shops);
+  renderDMDashboard();
+}
+
 function toggleShopDetails(shopId){
   const el = document.getElementById('details_' + shopId);
-  if(el) el.classList.toggle('hidden');
+  if(el) {
+    el.classList.toggle('hidden');
+    if(el.classList.contains('hidden')){
+      openShops.delete(shopId);
+    } else {
+      openShops.add(shopId);
+    }
+  }
+}
+
+function togglePartyDetails(partyId){
+  const el = document.getElementById('party_details_' + partyId);
+  if(el) {
+    el.classList.toggle('hidden');
+    if(el.classList.contains('hidden')){
+      openParties.delete(partyId);
+    } else {
+      openParties.add(partyId);
+    }
+  }
 }
 
 function deleteShop(shopId){
   if(confirm('ลบร้านค้านี้จริงๆ หรือ?')){
     const shops = getShops();
     delete shops[shopId];
+    openShops.delete(shopId);
+    openArsenals.delete(shopId);
     saveShops(shops);
     renderDMDashboard();
   }
@@ -268,17 +355,21 @@ function renderParties(){
 
     card.innerHTML = `
       <div class="shop-card-header">
-        <h3>ปาร์ตี้: ${p.name}</h3>
+        <button class="shop-name-btn ${openParties.has(p.id) ? '' : 'collapsed'}" onclick="togglePartyDetails('${p.id}')">
+          ปาร์ตี้: ${p.name}
+        </button>
         <button class="small-btn danger" onclick="deleteParty('${p.id}')">ลบปาร์ตี้</button>
       </div>
-      <div class="item-list-dm">
-        <label style="font-size:12px; color:var(--ink-soft); margin-bottom:10px; display:block;">ผู้เล่นในปาร์ตี้ (Username / Password):</label>
-        ${playersHtml || '<p style="font-size:14px; color:var(--ink-soft);">ยังไม่มีผู้เล่น</p>'}
-      </div>
-      <div class="add-item-dm">
-        <input type="text" placeholder="ชื่อผู้เล่น (Username)" id="plname_${p.id}">
-        <input type="text" placeholder="รหัสผ่าน" id="plpass_${p.id}">
-        <button class="small-btn primary" onclick="addPlayer('${p.id}')">เพิ่มผู้เล่น</button>
+      <div id="party_details_${p.id}" class="${openParties.has(p.id) ? '' : 'hidden'}">
+        <div class="item-list-dm">
+          <label style="font-size:12px; color:var(--ink-soft); margin-bottom:10px; display:block;">ผู้เล่นในปาร์ตี้ (Username / Password):</label>
+          ${playersHtml || '<p style="font-size:14px; color:var(--ink-soft);">ยังไม่มีผู้เล่น</p>'}
+        </div>
+        <div class="add-item-dm">
+          <input type="text" placeholder="ชื่อผู้เล่น (Username)" id="plname_${p.id}">
+          <input type="text" placeholder="รหัสผ่าน" id="plpass_${p.id}">
+          <button class="small-btn primary" onclick="addPlayer('${p.id}')">เพิ่มผู้เล่น</button>
+        </div>
       </div>
     `;
     container.appendChild(card);
@@ -305,6 +396,7 @@ function deleteParty(id){
   if(!confirm('ลบปาร์ตี้นี้จริงๆ หรือ? (ผู้เล่นในปาร์ตี้จะถูกลบด้วย)')) return;
   let parties = getParties();
   parties = parties.filter(p => p.id !== id);
+  openParties.delete(id);
   saveParties(parties);
   
   let users = getUsers();
@@ -367,6 +459,7 @@ async function initDM(){
     return;
   }
   renderDMDashboard();
+  updateSyncDisplay();
 }
 
 initDM();

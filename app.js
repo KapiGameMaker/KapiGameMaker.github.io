@@ -2,20 +2,20 @@
 const DEFAULT_ADMIN = { id: 'admin_0', username: 'plume2546', password: 'P16b1p16_', role: 'admin' };
 
 const DEFAULT_CATALOG = [
-  {name:"ดาบสั้น (Shortsword)", cat:"อาวุธ", price:10},
-  {name:"ดาบยาว (Longsword)", cat:"อาวุธ", price:15},
-  {name:"ธนูยาว (Longbow)", cat:"อาวุธ", price:50},
-  {name:"ลูกธนู x20 (Arrows)", cat:"อาวุธ", price:1},
-  {name:"เกราะหนัง (Leather Armor)", cat:"เกราะ", price:10},
-  {name:"เกราะโซ่ (Chain Mail)", cat:"เกราะ", price:75},
-  {name:"โล่ (Shield)", cat:"เกราะ", price:10},
-  {name:"ยาโพชั่นฟื้นพลัง (Potion of Healing)", cat:"เวทมนตร์", price:50},
-  {name:"คบเพลิง x5 (Torches)", cat:"อุปกรณ์", price:0.5},
-  {name:"เชือกไหมยาว 50ฟุต (Silk Rope)", cat:"อุปกรณ์", price:10},
-  {name:"ชุดปีนเขา (Climber's Kit)", cat:"อุปกรณ์", price:25},
-  {name:"เป้สัมภาระ (Backpack)", cat:"อุปกรณ์", price:2},
-  {name:"อาหารเดินทาง 1วัน (Rations)", cat:"อุปกรณ์", price:0.5},
-  {name:"ชุดปฐมพยาบาล (Healer's Kit)", cat:"อุปกรณ์", price:5},
+  {name:"ดาบสั้น (Shortsword)", cat:"อาวุธ", price:10, desc:"ดาบขนาดกะทัดรัด คล่องตัวสูง"},
+  {name:"ดาบยาว (Longsword)", cat:"อาวุธ", price:15, desc:"ดาบมาตรฐานสำหรับนักรบทั่วไป"},
+  {name:"ธนูยาว (Longbow)", cat:"อาวุธ", price:50, desc:"ธนูระยะไกลที่ต้องการความแข็งแรงในการดึง"},
+  {name:"ลูกธนู x20 (Arrows)", cat:"อาวุธ", price:1, desc:"ลูกธนูพื้นฐานบรรจุ 20 ดอก"},
+  {name:"เกราะหนัง (Leather Armor)", cat:"เกราะ", price:10, desc:"เกราะเบาทำจากหนังสัตว์ที่ผ่านการแปรรูป"},
+  {name:"เกราะโซ่ (Chain Mail)", cat:"เกราะ", price:75, desc:"เกราะทำจากห่วงเหล็กถักทอเข้าด้วยกัน"},
+  {name:"โล่ (Shield)", cat:"เกราะ", price:10, desc:"โล่ไม้เสริมเหล็กเพื่อการป้องกัน"},
+  {name:"ยาโพชั่นฟื้นพลัง (Potion of Healing)", cat:"เวทมนตร์", price:50, desc:"น้ำยาสีแดงที่ช่วยสมานแผลในทันที"},
+  {name:"คบเพลิง x5 (Torches)", cat:"อุปกรณ์", price:0.5, desc:"คบเพลิงให้แสงสว่างนาน 1 ชั่วโมง"},
+  {name:"เชือกไหมยาว 50ฟุต (Silk Rope)", cat:"อุปกรณ์", price:10, desc:"เชือกไหมที่เหนียวและเบากว่าเชือกทั่วไป"},
+  {name:"ชุดปีนเขา (Climber's Kit)", cat:"อุปกรณ์", price:25, desc:"อุปกรณ์ช่วยเหลือในการปีนหน้าผาชัน"},
+  {name:"เป้สัมภาระ (Backpack)", cat:"อุปกรณ์", price:2, desc:"กระเป๋าใส่อุปกรณ์เดินทางทั่วไป"},
+  {name:"อาหารเดินทาง 1วัน (Rations)", cat:"อุปกรณ์", price:0.5, desc:"อาหารแห้งที่เก็บไว้ได้นาน"},
+  {name:"ชุดปฐมพยาบาล (Healer's Kit)", cat:"อุปกรณ์", price:5, desc:"อุปกรณ์พื้นฐานสำหรับการทำแผล"},
 ];
 
 let isInitialized = false;
@@ -51,6 +51,10 @@ async function initializeData(){
     }
     saveUsers(users);
 
+    if(!localStorage.getItem('masterCatalog')){
+      localStorage.setItem('masterCatalog', JSON.stringify([...DEFAULT_CATALOG]));
+    }
+
     if(!localStorage.getItem('parties')){
       localStorage.setItem('parties', JSON.stringify([]));
     }
@@ -59,7 +63,7 @@ async function initializeData(){
         'shop_0': {
           id: 'shop_0',
           name: 'สตาร์ทกิตเกอร์',
-          items: [...DEFAULT_CATALOG],
+          items: [],
           dmId: 'admin_0' // Default shop belongs to admin or a generic DM
         }
       };
@@ -94,6 +98,15 @@ function getParties(){
 
 function saveParties(parties){
   localStorage.setItem('parties', JSON.stringify(parties));
+  triggerAutoSync();
+}
+
+function getMasterCatalog(){
+  return JSON.parse(localStorage.getItem('masterCatalog') || '[]');
+}
+
+function saveMasterCatalog(items){
+  localStorage.setItem('masterCatalog', JSON.stringify(items));
   triggerAutoSync();
 }
 
@@ -192,8 +205,9 @@ async function pushToGitHub(){
     users: getUsers(),
     parties: getParties(),
     shops: getShops(),
+    masterCatalog: getMasterCatalog(),
     dmWebhooks: JSON.parse(localStorage.getItem('dmWebhooks') || '{}'),
-    lastUpdated: new Date().toISOString()
+    lastUpdated: new Date().toLocaleString('th-TH')
   };
 
   const url = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path || 'dnd_data.json'}`;
@@ -234,6 +248,11 @@ async function pushToGitHub(){
     clearTimeout(timeoutId);
 
     if(!saveRes.ok) throw new Error('GitHub Save Failed');
+    
+    const now = new Date().toLocaleString('th-TH');
+    localStorage.setItem('lastSyncTime', now);
+    updateSyncDisplay(now);
+
     console.log('✅ Data synced to GitHub');
     return true;
   } catch (e) {
@@ -267,7 +286,9 @@ async function pullFromGitHub(){
       if(data.users) localStorage.setItem('users', JSON.stringify(data.users));
       if(data.parties) localStorage.setItem('parties', JSON.stringify(data.parties));
       if(data.shops) localStorage.setItem('shops', JSON.stringify(data.shops));
+      if(data.masterCatalog) localStorage.setItem('masterCatalog', JSON.stringify(data.masterCatalog));
       if(data.dmWebhooks) localStorage.setItem('dmWebhooks', JSON.stringify(data.dmWebhooks));
+      if(data.lastUpdated) localStorage.setItem('lastSyncTime', data.lastUpdated);
       
       console.log('✅ Data loaded from GitHub');
       return true;
@@ -294,6 +315,14 @@ function triggerAutoSync(){
 // Formatting
 function fmt(n){
   return (Math.round(n*100)/100).toLocaleString();
+}
+
+function updateSyncDisplay(time){
+  const elements = document.querySelectorAll('.sync-time-display');
+  const t = time || localStorage.getItem('lastSyncTime') || 'ยังไม่มีการซิงค์';
+  elements.forEach(el => {
+    el.textContent = `ซิงค์ล่าสุด: ${t}`;
+  });
 }
 
 // Login functions (index.html)

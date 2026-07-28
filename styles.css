@@ -551,6 +551,11 @@ h1{
   content: '▼';
   font-size: 10px;
   color: var(--gold);
+  transition: transform 0.2s;
+}
+
+.shop-name-btn.collapsed::after {
+  transform: rotate(-90deg);
 }
 
 .shop-card h3{
@@ -667,12 +672,28 @@ h1{
 }
 
 .add-item-dm{
-  display:flex;
-  gap:8px;
   padding-top:12px;
   border-top:1px dashed var(--line);
   margin-top:12px;
 }
+
+.add-item-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  align-items: center;
+}
+
+.add-item-btns {
+  display: flex;
+  gap: 5px;
+  flex: 1.5;
+  min-width: 220px;
+}
+
+.add-item-btns button:first-child { flex: 2; }
+.add-item-btns button:last-child { flex: 1; }
 
 .add-item-dm input{
   flex:1;
@@ -693,4 +714,55 @@ h1{
   font-size:13px;
   color:var(--forest);
   margin-top:10px;
+}
+
+/* Arsenal Dropdown System */
+.arsenal-btn-yellow {
+  background: #ffcc00 !important;
+  color: black !important;
+  border-color: #d4aa00 !important;
+  font-weight: bold;
+}
+
+.arsenal-btn-red {
+  background: #cc0000 !important;
+  color: white !important;
+  border-color: #990000 !important;
+  font-weight: bold;
+}
+
+.arsenal-dropdown {
+  margin-top: 10px;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.4);
+  width: 100%;
+  animation: infoSlide 0.2s ease-out;
+}
+
+.arsenal-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 10px;
+  padding-right: 5px;
+}
+
+.arsenal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  transition: all 0.2s;
+}
+
+.arsenal-item:hover {
+  background: white;
+  border-color: var(--gold);
 }
