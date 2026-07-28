@@ -211,10 +211,16 @@
       "cat": "Adventuring Gear",
       "price": 50,
       "desc": "น้ำหนัก: 1 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nเมื่อคุณใช้การกระทำ Attack คุณสามารถแทนที่การโจมตี 1 ครั้งด้วยการขว้างขวดไฟนักแปรธาตุนี้\n\nเลือกสิ่งมีชีวิตหรือวัตถุ 1 ชิ้นที่คุณมองเห็นในระยะ 20 ฟุต\n\nเป้าหมายต้องทำการทอย Dexterity saving throw ผ่าน (ค่า DC = 8 + ตัวปรับแต่ง Dexterity + โบนัสความเชี่ยวชาญ Proficiency Bonus)\n\nหากทอยไม่ผ่าน เป้าหมายจะได้รับความเสียหายไฟ (Fire damage) 1d4 และเริ่มติดไฟ (start burning)"
+    },
+    {
+      "name": "Antitoxin (ยาแก้พิษ)",
+      "cat": "Adventuring Gear",
+      "price": 50,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nเมื่อใช้ Bonus Action คุณสามารถดื่มยาแก้พิษขวดนี้เพื่อรับสถานะ Advantage ในการทอย Saving Throw\n\nเพื่อป้องกันหรือยกเลิกสถานะติดพิษ (Poisoned condition) เป็นระยะเวลา 1 ชั่วโมง"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 18:52:08"
+  "lastUpdated": "28/7/2569 18:53:25"
 }
