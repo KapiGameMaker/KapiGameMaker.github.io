@@ -594,10 +594,16 @@
       "cat": "Adventuring Gear",
       "price": 1,
       "desc": "รายละเอียดคุณสมบัติ:\n\nผลของไอเทม: หากคุณเปิดอ่านและอ้างอิงจากแผนที่ที่มีความแม่นยำ คุณจะได้รับ โบนัส +5 ในการทอย Wisdom (Survival) check เพื่อค้นหาเส้นทางในพื้นที่ที่แสดงอยู่บนแผนที่นั้น"
+    },
+    {
+      "name": "Map or Scroll Case (กล่องใส่แผนที่หรือคัมภีร์)",
+      "cat": "Adventuring Gear",
+      "price": 1,
+      "desc": "น้ำหนัก: 1 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nความจุ: กล่องทรงกระบอกนี้สามารถบรรจุแผ่นกระดาษ (Paper) ได้สูงสุด 10 แผ่น หรือกระดาษพาร์ชเมนต์ (Parchment) ได้สูงสุด 5 แผ่น"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 21:35:48"
+  "lastUpdated": "28/7/2569 21:36:31"
 }
