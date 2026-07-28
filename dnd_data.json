@@ -475,10 +475,16 @@
       "cat": "Adventuring Gear",
       "price": 10,
       "desc": "รายละเอียดคุณสมบัติ:\n\nบรรจุในขวดขนาด 1 ออนซ์ (1-ounce bottle)\n\nมีปริมาณหมึกเพียงพอสำหรับเขียนหนังสือได้ประมาณ 500 หน้า"
+    },
+    {
+      "name": "Ink Pen (ปากกาหมึก)",
+      "cat": "Adventuring Gear",
+      "price": 0.02,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nเมื่อใช้ร่วมกับน้ำหมึก (Ink) ปากกาหมึกนี้ใช้สำหรับจดบันทึก เขียนหนังสือ หรือวาดภาพ"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 21:04:25"
+  "lastUpdated": "28/7/2569 21:05:22"
 }
