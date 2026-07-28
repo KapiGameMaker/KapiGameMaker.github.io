@@ -241,10 +241,16 @@
       "cat": "Adventuring Gear",
       "price": 0.4,
       "desc": "น้ำหนัก: 2 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nตะกร้าสามารถบรรจุของได้สูงสุด 40 ปอนด์ (ปริมาตรภายใน 2 ลูกบาศก์ฟุต)"
+    },
+    {
+      "name": "Bedroll (ถุงนอน)",
+      "cat": "Adventuring Gear",
+      "price": 1,
+      "desc": "น้ำหนัก: 7 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nถุงนอนสำหรับนอนพักผ่อน 1 คน (ขนาด Small หรือ Medium)\n\nในขณะที่นอนอยู่ในถุงนอน คุณจะ ผ่านการทอย Saving throw ต่อสู้กับสภาพอากาศหนาวจัด (Extreme cold) โดยอัตโนมัติ"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 19:08:25"
+  "lastUpdated": "28/7/2569 19:09:35"
 }
