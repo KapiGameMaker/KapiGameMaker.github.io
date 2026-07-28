@@ -624,10 +624,16 @@
       "cat": "Adventuring Gear",
       "price": 33,
       "desc": "น้ำหนัก: 48½ ปอนด์ (48.5 lb.)\n\nรายการอุปกรณ์ภายในชุด (Includes):\n\nChest (หีบไม้): 1 ใบ\n\nCrowbar (ชะแลง): 1 อัน\n\nHammer (ค้อน): 1 เล่ม\n\nWooden Stakes (หลักไม้): 3 อัน\n\nHoly Symbol (สัญลักษณ์ศักดิ์สิทธิ์): 1 ชิ้น\n\nFlask of Holy Water (ขวดน้ำมนต์): 1 ขวด\n\nSet of Manacles (ชุดกุญแจมือ): 1 ชุด\n\nSteel Mirror (กระจกเหล็ก): 1 บาน\n\nFlask of Oil (ขวดน้ำมัน): 1 ขวด\n\nTinderbox (กล่องจุดไฟ): 1 ชุด\n\nTorches (คบเพลิง): 3 เล่ม"
+    },
+    {
+      "name": "Muroosa Balm (บาล์มมูรูซา)",
+      "cat": "Adventuring Gear",
+      "price": 100,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nลักษณะ: ยานวดเนื้อครีมบดจากพุ่มไม้มูรูซา มีสรรพคุณช่วยป้องกันผิวไหม้แดด และมีฤทธิ์ทนทานต่อไฟ\n\nผลของการใช้งาน:\n\nทาต้านไฟ: เมื่อใช้เวลา 1 นาที ในการทาบาล์มมูรูซาปริมาณ ¼ ไพน์ (quarter pint) ลงบนผิวหนัง คุณจะได้รับ Resistance ต่อ Fire Damage เป็นเวลา 1 ชั่วโมง\n\nทากันแดด: ปริมาณสำหรับทารักษารอยไหม้แดดทั่วไปมีราคาเพียง 1 GP"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 21:40:43"
+  "lastUpdated": "28/7/2569 21:42:06"
 }
