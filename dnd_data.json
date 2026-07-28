@@ -301,10 +301,16 @@
       "cat": "Adventuring Gear",
       "price": 0.05,
       "desc": "น้ำหนัก: 2 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nถังน้ำสามารถบรรจุสิ่งของหรือของเหลวได้สูงสุด 0.5 ลูกบาศก์ฟุต (ครึ่งลูกบาศก์ฟุต)"
+    },
+    {
+      "name": "Bullseye Lantern (ตะเกียงเลนส์รวมแสง)",
+      "cat": "Adventuring Gear",
+      "price": 10,
+      "desc": "น้ำหนัก: 2 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nตะเกียงนี้ใช้น้ำมัน (Oil) เป็นเชื้อเพลิง\n\nส่องแสงสว่างจ้า (Bright Light) เป็นแนวกรวย (Cone) ขนาด 60 ฟุต\n\nและส่องแสงมัว (Dim Light) ต่อเนื่องออกไปอีก 60 ฟุต"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 19:22:55"
+  "lastUpdated": "28/7/2569 19:23:58"
 }
