@@ -325,10 +325,16 @@
       "cat": "Adventuring Gear",
       "price": 0.01,
       "desc": "รายละเอียดคุณสมบัติ:\n\nเมื่อจุดไฟ เทียนจะส่องสว่างได้นาน 1 ชั่วโมง\n\nเปล่งแสงสว่าง Bright Light ในรัศมี 5 ฟุต\n\nและเปล่งแสงมัว Dim Light ต่อเนื่องออกไปอีก 5 ฟุต"
+    },
+    {
+      "name": "Chain (โซ่)",
+      "cat": "Adventuring Gear",
+      "price": 5,
+      "desc": "น้ำหนัก: 10 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nการใช้งาน: ใช้การกระทำ Utilize เพื่อพันโซ่รอบตัวสิ่งมีชีวิตที่ไม่ยินยอมในระยะ 5 ฟุต ที่กำลังติดสถานะ Grappled, Incapacitated หรือ Restrained โดยต้องทอยเช็ค Strength (Athletics) DC 13 ให้ผ่าน\n\nผลกระทบ: หากขาของสิ่งมีชีวิตนั้นถูกมัด โซ่จะทำให้ติดสถานะ Restrained จนกว่าจะหลุดรอดออกมาได้\n\nการหลุดรอด (Escaping): การดิ้นหลุดจากโซ่ ต้องใช้ 1 Action ในการทอยเช็ค Dexterity (Acrobatics) DC 18 ให้ผ่าน\n\nการหักโซ่ (Bursting): การกระชากโซ่ให้ขาด ต้องใช้ 1 Action ในการทอยเช็ค Strength (Athletics) DC 20 ให้ผ่าน"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 19:27:31"
+  "lastUpdated": "28/7/2569 19:29:19"
 }
