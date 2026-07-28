@@ -798,10 +798,16 @@
       "cat": "Adventuring Gear",
       "price": 2,
       "desc": "น้ำหนัก: 20 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nความจุ: เต็นท์ 1 หลัง สามารถรองรับสิ่งมีชีวิตขนาดเล็ก (Small) หรือขนาดปานกลาง (Medium) ได้สูงสุด 2 ตัว (หรือ 2 คน) สำหรับใช้นอนพักผ่อน"
+    },
+    {
+      "name": "Theki Root (รากไม้เทกิ)",
+      "cat": "Adventuring Gear",
+      "price": 3,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nลักษณะ: รากไม้หนาที่เก็บได้จากปลักบึง มีรสชาติขม แต่เชื่อกันว่าช่วยบำรุงระบบย่อยอาหาร\n\nผลของการบริโภค: เมื่อคุณใช้ Action ในการทาน Theki Root จำนวน 1 โดส คุณจะได้รับ Advantage ในการทอย Saving Throw เพื่อต่อต้านผลของ พิษหรือสารพิษ (Poisonous or Toxic substances) เป็นเวลา 8 ชั่วโมง"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 22:43:54"
+  "lastUpdated": "28/7/2569 22:44:51"
 }
