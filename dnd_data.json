@@ -199,9 +199,16 @@
       "dmId": "dm_1785191399831"
     }
   },
-  "masterCatalog": [],
+  "masterCatalog": [
+    {
+      "name": "Acid (ขวดกรด)",
+      "cat": "Adventuring Gear",
+      "price": 25,
+      "desc": "น้ำหนัก: 1 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nเมื่อคุณใช้การกระทำ Attack คุณสามารถแทนที่การโจมตี 1 ครั้งด้วยการขว้างขวดกรดนี้ใส่เป้าหมาย\n\nเลือกสิ่งมีชีวิตหรือวัตถุ 1 ชิ้นที่คุณมองเห็นในระยะ 20 ฟุต\n\nเป้าหมายต้องทำการทอย Dexterity saving throw ผ่าน (ค่า DC = 8 + ตัวปรับแต่ง Dexterity + โบนัสความเชี่ยวชาญ Proficiency Bonus)\n\nหากทอยไม่ผ่าน เป้าหมายจะได้รับความเสียหายกรด (Acid damage) 2d6"
+    }
+  ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 18:48:43"
+  "lastUpdated": "28/7/2569 18:49:50"
 }
