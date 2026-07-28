@@ -750,10 +750,16 @@
       "cat": "Adventuring Gear",
       "price": 40,
       "desc": "น้ำหนัก: 22 ปอนด์\n\nรายการอุปกรณ์ภายในชุด (Includes):\n\nBackpack (กระเป๋าเป้สะพายหลัง): 1 ใบ\n\nBook (หนังสือบันทึกเปล่า): 1 เล่ม\n\nInk (น้ำหมึก): 1 ขวด\n\nInk Pen (ปากกาขนนก/ปากกาหัวหมึก): 1 ด้าม\n\nLamp (ตะเกียง): 1 ดวง\n\nOil (น้ำมันเติมตะเกียง): 10 ขวด (Flasks)\n\nParchment (กระดาษพาชเมนต์): 10 แผ่น\n\nTinderbox (กล่องจุดไฟ): 1 ชุด"
+    },
+    {
+      "name": "Shovel (พลั่วขุดดิน)",
+      "cat": "Adventuring Gear",
+      "price": 2,
+      "desc": "น้ำหนัก: 5 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nการใช้งาน: คุณสามารถใช้พลั่วขุดดินเพื่อขุดหลุมขนาด 5x5x5 ฟุต (5 feet on each side) บนพื้นดินหรือวัสดุที่มีลักษณะใกล้เคียงกันได้ โดยใช้เวลาทำงาน 1 ชั่วโมง"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 22:18:12"
+  "lastUpdated": "28/7/2569 22:18:57"
 }
