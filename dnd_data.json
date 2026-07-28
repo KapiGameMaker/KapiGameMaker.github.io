@@ -732,10 +732,16 @@
       "cat": "Adventuring Gear",
       "price": 1,
       "desc": "น้ำหนัก: 5 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nการผูกเงื่อน (Tying a Knot): คุณสามารถใช้ Utilize action เพื่อผูกเงื่อนเชือกได้ หากทอย Dexterity (Sleight of Hand) check สำเร็จที่ DC 10\n\nการทำลายเชือก (Bursting): เชือกนี้สามารถถูกดึงหรือทำให้ขาดออกได้ด้วยการทอย Strength (Athletics) check สำเร็จที่ DC 20\n\nการมัดเป้าหมาย (Binding a Creature):\n\nคุณจะสามารถใช้เชือกมัดสิ่งมีชีวิตที่ไม่ยินยอม (Unwilling creature) ได้ก็ต่อเมื่อสิ่งมีชีวิตนั้นติดสถานะ Grappled, Incapacitated หรือ Restrained อยู่เท่านั้น\n\nหากขาของสิ่งมีชีวิตนั้นถูกมัด สิ่งมีชีวิตนั้นจะติดสถานะ Restrained จนกว่าจะหลุดพ้นออกมาได้\n\nการหลบหนี: การดิ้นหรือสลัดออกจากเชือก สิ่งมีชีวิตนั้นต้องใช้ Action ในการทอย Dexterity (Acrobatics) check ให้สำเร็จที่ DC 15"
+    },
+    {
+      "name": "Ryath Root (รากไม้ไรแอธ)",
+      "cat": "Adventuring Gear",
+      "price": 50,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nผลของการบริโภค: สิ่งมีชีวิตใดก็ตามที่กิน Ryath Root เข้าไป จะได้รับพลังชีวิตชั่วคราว (Temporary Hit Points) จำนวน 2d4\n\nข้อควรระวัง / ผลข้างเคียง: สิ่งมีชีวิตที่กิน Ryath Root มากกว่า 1 ชิ้นภายในระยะเวลา 24 ชั่วโมง จะต้องทำการทอย DC 13 Constitution saving throw หากล้มเหลวจะติดสถานะ Poisoned (ติดพิษ) เป็นเวลา 1 ชั่วโมง"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 22:15:26"
+  "lastUpdated": "28/7/2569 22:16:15"
 }
