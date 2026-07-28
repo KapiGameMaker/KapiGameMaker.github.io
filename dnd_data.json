@@ -84,6 +84,11 @@
           "name": "555",
           "cat": "555",
           "price": 555
+        },
+        {
+          "name": "666",
+          "cat": "666",
+          "price": 666
         }
       ],
       "dmId": "dm_1785191399831"
@@ -98,5 +103,5 @@
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "2026-07-28T00:07:32.315Z"
+  "lastUpdated": "2026-07-28T00:07:45.177Z"
 }
