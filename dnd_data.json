@@ -379,10 +379,16 @@
       "cat": "Adventuring Gear",
       "price": 10,
       "desc": "น้ำหนัก: 4 ปอนด์\n\nรายละเอียดคุณสมบัติ:\n\nป้องกันความร้อน: เมื่อคุณสวมใส่ชุดทะเลทรายนี้ และ ไม่ได้สวมใส่ชุดเกราะปานกลาง (Medium armor) หรือชุดเกราะหนัก (Heavy armor) คุณจะ ผ่านการทอย Saving Throw เพื่อต้านทานผลกระทบจากความร้อนจัด (Extreme Heat) โดยอัตโนมัติ"
+    },
+    {
+      "name": "Devil Mask (หน้ากากปีศาจ)",
+      "cat": "Adventuring Gear",
+      "price": 25,
+      "desc": "รายละเอียดคุณสมบัติ:\n\nในขณะที่คุณสวมใส่ Devil Mask สิ่งมีชีวิตอื่นจะติด Disadvantage ในการทอยเช็ค:\n\nIntelligence (Investigation) เพื่อสืบหาหรือระบุตัวตนที่แท้จริงของคุณ\n\nWisdom (Insight) เพื่ออ่านเจตนาหรือความตั้งใจที่แท้จริงของคุณ"
     }
   ],
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 19:43:34"
+  "lastUpdated": "28/7/2569 19:46:56"
 }
