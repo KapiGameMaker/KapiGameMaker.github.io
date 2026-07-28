@@ -70,7 +70,14 @@
     "shop_1785191445402": {
       "id": "shop_1785191445402",
       "name": "เหงา",
-      "items": [],
+      "items": [
+        {
+          "name": "ดาบสั้น (Shortsword)",
+          "cat": "อาวุธ",
+          "price": 10,
+          "info": ""
+        }
+      ],
       "dmId": "dm_1785191399831"
     },
     "shop_1785193274130": {
@@ -261,5 +268,5 @@
   "dmWebhooks": {
     "dm_1785191399831": "https://discord.com/api/webhooks/1531411075013283890/iCxRs4ThC310YN_Igfms19aqvwhHWFTAuENce8J7njuNnn33c9KEz51PT1DViEWpmXRZ"
   },
-  "lastUpdated": "28/7/2569 08:34:34"
+  "lastUpdated": "28/7/2569 18:20:45"
 }
